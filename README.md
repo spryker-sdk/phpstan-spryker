@@ -19,15 +19,20 @@ The [Development](https://github.com/spryker/Development) module provides a conv
 ```
 console code:phpstan
 ```
+This will run over your project code by default.
 
 `-v` is useful for more info output.
 
 ### How to use in any project
-You can also manually invoke the phpcs/phpcbf commands:
+You can also manually invoke the command:
 ```
-vendor/bin/phpstan ...
+vendor/bin/phpstan analyze -c /path/to/phpstan.neon src/ -l 1
 ```
 
+For larger repositories you might have to raise the memory limit:
+```
+php -d memory_limit=512M vendor/bin/phpstan analyze ... 
+```
 
 ## Integrating into CI testing and PRs
 
