@@ -1,0 +1,45 @@
+{
+  "name": "spryker-sdk/phpstan",
+  "description": "Spryker PHPStan Extensions",
+  "license": "MIT",
+  "keywords": ["phpstan", "analyzing"],
+  "homepage": "http://spryker.com",
+  "authors": [
+    {
+      "name": "Spryker",
+      "homepage": "http://spryker.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "phpstan/phpstan": "^0.8"
+  },
+  "require-dev": {
+    "spryker/kernel": "*",
+    "spryker/code-sniffer": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "SprykerSdk\\Phpstan\\": "src/"
+    }
+  },
+  "scripts": {
+    "cs-check": "phpcs --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v --ignore=/phpstan/vendor/ ./",
+    "cs-fix": "phpcbf --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v --ignore=/phpstan/vendor/ ./"
+  },
+  "support": {
+    "source": "https://github.com/spryker-sdk/phpstan"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "use-include-path": true,
+    "process-timeout": 600
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://code.spryker.com/repo/private"
+    }
+  ]
+}
