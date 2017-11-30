@@ -5,21 +5,18 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerSdk\PhpStan\DynamicType;
+namespace SprykerSdk\PhpStan\Type;
 
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 
-class PluginDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class QueryContainerDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
     /**
      * @var array
      */
     protected $methodResolves = [
-        'getFacade' => true,
         'getFactory' => true,
-        'getQueryContainer' => true,
-        'getConfig' => true,
     ];
 
     /**
@@ -27,6 +24,6 @@ class PluginDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension imp
      */
     public static function getClass(): string
     {
-        return AbstractPlugin::class;
+        return AbstractQueryContainer::class;
     }
 }

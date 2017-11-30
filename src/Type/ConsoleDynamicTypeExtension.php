@@ -5,12 +5,12 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerSdk\PhpStan\DynamicType;
+namespace SprykerSdk\PhpStan\Type;
 
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
+use Spryker\Zed\Kernel\Communication\Console\Console;
 
-class ControllerDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class ConsoleDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
     /**
      * @var array
@@ -26,6 +26,6 @@ class ControllerDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension
      */
     public static function getClass(): string
     {
-        return AbstractController::class;
+        return Console::class;
     }
 }
