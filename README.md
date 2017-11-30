@@ -15,7 +15,7 @@ Make sure you include the repo as `require-dev` dependency:
 composer require --dev spryker-sdk/phpstan
 ```
 
-The [Development](https://github.com/spryker/Development) bundle provides a convenience command:
+The [Development](https://github.com/spryker/Development) module provides a convenience command:
 ```
 console code:phpstan
 ```
