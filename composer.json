@@ -1,5 +1,5 @@
 {
-  "name": "spryker-sdk/phpstan",
+  "name": "spryker-sdk/phpstan-spryker",
   "description": "Spryker PHPStan Extensions",
   "license": "MIT",
   "keywords": ["phpstan", "analyzing"],
@@ -28,7 +28,7 @@
     "cs-fix": "phpcbf --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v --ignore=/phpstan/vendor/ ./"
   },
   "support": {
-    "source": "https://github.com/spryker-sdk/phpstan"
+    "source": "https://github.com/spryker-sdk/phpstan-spryker"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
