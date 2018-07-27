@@ -5,19 +5,18 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace PhpStan\Type\Spryker;
+namespace PHPStan\Type\Spryker;
 
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use Spryker\Service\Kernel\AbstractService;
+use Spryker\Shared\Kernel\AbstractBundleConfig;
 
-class ServiceDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class ConfigDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
     /**
      * @var array
      */
     protected $methodResolves = [
-        'getFactory' => true,
-        'getConfig' => true,
+        'getSharedConfig' => true,
     ];
 
     /**
@@ -25,6 +24,6 @@ class ServiceDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension im
      */
     public function getClass(): string
     {
-        return AbstractService::class;
+        return AbstractBundleConfig::class;
     }
 }

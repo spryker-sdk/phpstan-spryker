@@ -5,21 +5,20 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace PhpStan\Type\Spryker;
+namespace PHPStan\Type\Spryker;
 
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Yves\Kernel\Form\AbstractType;
 
-class PluginDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class YvesFormTypeDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
     /**
      * @var array
      */
     protected $methodResolves = [
-        'getFacade' => true,
         'getFactory' => true,
-        'getQueryContainer' => true,
         'getConfig' => true,
+        'getQueryContainer' => true,
     ];
 
     /**
@@ -27,6 +26,6 @@ class PluginDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension imp
      */
     public function getClass(): string
     {
-        return AbstractPlugin::class;
+        return AbstractType::class;
     }
 }
