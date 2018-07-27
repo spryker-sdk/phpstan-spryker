@@ -39,9 +39,9 @@ php -d memory_limit=512M vendor/bin/phpstan analyze ...
 Please see the [Spryker Demoshop](https://github.com/spryker/demoshop) repository for details. It is used there.
 
 ## Writing new extensions
-Run `./setup.sh` to have the dependencies installed.
+Run `composer install` to have the dependencies installed.
 
-Add new TypeExtension classes to the corresponding category inside src folder.
+Add new TypeExtension classes to the corresponding category inside src/ folder.
 
 ### Runninng sniffer/fixer on your changes
 ```

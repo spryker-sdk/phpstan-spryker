@@ -8,17 +8,16 @@
 namespace PhpStan\Type\Spryker;
 
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
+use Spryker\Zed\Kernel\AbstractFactory;
 
-class ControllerDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class ZedFactoryDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
     /**
      * @var array
      */
     protected $methodResolves = [
-        'getFacade' => true,
         'getQueryContainer' => true,
-        'getFactory' => true,
+        'getFacade' => true,
     ];
 
     /**
@@ -26,6 +25,6 @@ class ControllerDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension
      */
     public function getClass(): string
     {
-        return AbstractController::class;
+        return AbstractFactory::class;
     }
 }

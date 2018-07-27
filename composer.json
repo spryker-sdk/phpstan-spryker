@@ -11,8 +11,8 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "phpstan/phpstan": "^0.8"
+    "php": ">=7.1",
+    "phpstan/phpstan": "^0.10.2"
   },
   "require-dev": {
     "spryker/kernel": "*",
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "SprykerSdk\\Phpstan\\": "src/"
+      "PHPStan\\": "src/"
     }
   },
   "scripts": {
@@ -35,11 +35,5 @@
   "config": {
     "use-include-path": true,
     "process-timeout": 600
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://code.spryker.com/repo/private"
-    }
-  ]
+  }
 }

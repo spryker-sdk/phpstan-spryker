@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerSdk\PhpStan\Type;
+namespace PhpStan\Type\Spryker;
 
 use Exception;
 use PhpParser\Node\Expr\MethodCall;
@@ -50,17 +50,17 @@ abstract class AbstractSprykerDynamicTypeExtension implements DynamicMethodRetur
         $docComment = $scope->getClassReflection()->getNativeReflection()->getDocComment();
 
         if (!$docComment) {
-            throw new Exception('Please add PHPDoc block');
+            throw new Exception('Please add PHPDoc block with @method annotation for "getFactory(), getQueryContainer() and/or getFacade()" if one  is used.');
         }
 
         preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\(\*]+?)(?<!\|)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
-            if ($match['MethodName'] === $methodCall->name) {
+            if ($match['MethodName'] === $methodCall->name->name) {
                 return new ObjectType($match['Type']);
             }
         }
 
-        throw new Exception();
+        throw new Exception(sprintf('Missing @method annotation for "%s()"', $methodCall->name->name));
     }
 }
