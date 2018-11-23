@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * MIT License
@@ -10,23 +10,20 @@ namespace PHPStan\Type\Spryker;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use Spryker\Zed\Kernel\Communication\Form\AbstractType;
 
-class ZedFormTypeDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class ZedFormTypeDynamicTypeExtension extends ClassDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
-    /**
-     * @var array
-     */
-    protected $methodResolves = [
-        'getFacade' => true,
-        'getFactory' => true,
-        'getConfig' => true,
-        'getQueryContainer' => true,
-    ];
 
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return AbstractType::class;
-    }
+	/** @var bool[] */
+	protected $methodResolves = [
+		'getFacade' => true,
+		'getFactory' => true,
+		'getConfig' => true,
+		'getQueryContainer' => true,
+	];
+
+	public function getClass(): string
+	{
+		return AbstractType::class;
+	}
+
 }

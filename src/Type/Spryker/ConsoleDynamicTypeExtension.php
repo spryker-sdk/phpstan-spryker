@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  * MIT License
@@ -10,22 +10,19 @@ namespace PHPStan\Type\Spryker;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 
-class ConsoleDynamicTypeExtension extends AbstractSprykerDynamicTypeExtension implements DynamicMethodReturnTypeExtension
+class ConsoleDynamicTypeExtension extends ClassDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
-    /**
-     * @var array
-     */
-    protected $methodResolves = [
-        'getFacade' => true,
-        'getQueryContainer' => true,
-        'getFactory' => true,
-    ];
 
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return Console::class;
-    }
+	/** @var bool[] */
+	protected $methodResolves = [
+		'getFacade' => true,
+		'getQueryContainer' => true,
+		'getFactory' => true,
+	];
+
+	public function getClass(): string
+	{
+		return Console::class;
+	}
+
 }
