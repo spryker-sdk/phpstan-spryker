@@ -7,7 +7,7 @@
 
 This extension provides following features:
 
-* Notifies you when you try to use `getConfig`, `getClient`, `getFacade`, `getFactory`, `getSharedConfig`, `getQueryContainer` methods without specifying theirs types in a class's DocBlock.
+* Notifies you when you try to use `getConfig()`, `getClient()`, `getFacade()`, `getFactory()`, `getSharedConfig()`, `getQueryContainer()` methods without specifying theirs types in a class's DocBlock.
 
 
 ## Usage
