@@ -10,20 +10,29 @@ namespace PHPStan\Type\Spryker;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 
 abstract class ClassDynamicTypeExtension implements DynamicMethodReturnTypeExtension
 {
+    /** @var \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension */
+    private $annotationsMethodsClassReflectionExtension;
 
 	/** @var bool[] */
 	protected $methodResolves = [];
 
-	public function isMethodSupported(MethodReflection $methodReflection): bool
+    public function __construct(AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension)
+    {
+        $this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
+    }
+
+    public function isMethodSupported(MethodReflection $methodReflection): bool
 	{
-		if (isset($this->methodResolves[$methodReflection->getName()])) {
+	    if (isset($this->methodResolves[$methodReflection->getName()])) {
 			return true;
 		}
 
@@ -46,25 +55,14 @@ abstract class ClassDynamicTypeExtension implements DynamicMethodReturnTypeExten
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		if (!$methodCall->name instanceof Identifier) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+		if (!$this->annotationsMethodsClassReflectionExtension->hasMethod($scope->getClassReflection(), $methodReflection->getName())) {
+            return new ErrorType();
+        }
 
-		$docComment = $scope->getClassReflection()->getNativeReflection()->getDocComment();
+        $annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($scope->getClassReflection(), $methodReflection->getName());
 
-		if ($docComment === false) {
-			throw new \Exception('Please add PHPDoc block with @method annotation for "getFactory(), getQueryContainer() and/or getFacade()" if one  is used.');
-		}
+        return $annotationMethod->getVariants()[0]->getReturnType();
 
-		preg_match_all('#@method\s+(?:(?P<IsStatic>static)\s+)?(?:(?P<Type>[^\(\*]+?)(?<!\|)\s+)?(?P<MethodName>[a-zA-Z0-9_]+)(?P<Parameters>(?:\([^\)]*\))?)#', $docComment, $matches, PREG_SET_ORDER);
-
-		foreach ($matches as $match) {
-			if ($match['MethodName'] === $methodCall->name->name) {
-				return new ObjectType($match['Type']);
-			}
-		}
-
-		throw new \Exception(sprintf('Missing @method annotation for "%s()"', $methodCall->name->name));
 	}
 
 }
