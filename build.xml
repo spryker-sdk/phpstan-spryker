@@ -71,7 +71,7 @@
             <arg value="-l"/>
             <arg value="7"/>
             <arg value="-c"/>
-            <arg path="phpstan.neon"/>
+            <arg path="tests/phpstan.neon"/>
             <arg path="src"/>
         </exec>
     </target>
