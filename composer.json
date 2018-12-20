@@ -15,8 +15,14 @@
     "phpstan/phpstan": "^0.10.2"
   },
   "require-dev": {
+    "jakub-onderka/php-parallel-lint": "^1.0",
+    "localheinz/composer-normalize": "~0.9.0",
+    "phing/phing": "^2.16.0",
     "spryker/kernel": "*",
-    "spryker/code-sniffer": "dev-master"
+    "spryker/code-sniffer": "dev-master",
+    "slevomat/coding-standard": "^4.7.2",
+    "consistence/coding-standard": "^3.5",
+    "phpstan/phpstan-strict-rules": "^0.10"
   },
   "autoload": {
     "psr-4": {

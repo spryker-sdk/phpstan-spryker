@@ -1,65 +1,270 @@
 services:
+    # Rules
     -
-        class: PHPStan\Type\Spryker\FacadeDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\AbstractFactory
+            methodNames:
+                - getQueryContainer
+                - getFacade
 
     -
-        class: PHPStan\Type\Spryker\QueryContainerDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Yves\Kernel\AbstractFactory
+            methodNames:
+                - getConfig
+                - getClient
 
     -
-        class: PHPStan\Type\Spryker\ConsoleDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Client\Kernel\AbstractClient
+            methodNames:
+                - getFactory
+                - getFacade
 
     -
-        class: PHPStan\Type\Spryker\ControllerDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Client\Kernel\AbstractPlugin
+            methodNames:
+                - getClient
+                - getFactory
 
     -
-        class: PHPStan\Type\Spryker\PluginDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Shared\Kernel\AbstractBundleConfig
+            methodNames:
+                - getSharedConfig
 
     -
-        class: PHPStan\Type\Spryker\ServiceDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\Console\Console
+            methodNames:
+                - getFacade
+                - getQueryContainer
+                - getFactory
 
     -
-        class: PHPStan\Type\Spryker\ConfigDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\Controller\AbstractController
+            methodNames:
+                - getFacade
+                - getQueryContainer
+                - getFactory
 
     -
-        class: PHPStan\Type\Spryker\ClientDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\Business\AbstractFacade
+            methodNames:
+                - getFactory
 
     -
-        class: PHPStan\Type\Spryker\ClientPluginDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\AbstractPlugin
+            methodNames:
+                - getFacade
+                - getFactory
+                - getQueryContainer
+                - getConfig
 
     -
-        class: PHPStan\Type\Spryker\YvesFormTypeDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\Persistence\AbstractQueryContainer
+            methodNames:
+                - getFactory
 
     -
-        class: PHPStan\Type\Spryker\ZedFormTypeDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Service\Kernel\AbstractService
+            methodNames:
+                - getFactory
+                - getConfig
 
     -
-        class: PHPStan\Type\Spryker\YvesFactoryDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Yves\Kernel\Form\AbstractType
+            methodNames:
+                - getFactory
+                - getConfig
+                - getQueryContainer
 
     -
-        class: PHPStan\Type\Spryker\ZedFactoryDynamicTypeExtension
+        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        tags:
+            - phpstan.rules.rule
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\Form\AbstractType
+            methodNames:
+                - getFacade
+                - getFactory
+                - getConfig
+                - getQueryContainer
+
+    # Extensions
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\AbstractFactory
+            methodNames:
+                - getQueryContainer
+                - getFacade
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Yves\Kernel\AbstractFactory
+            methodNames:
+                - getConfig
+                - getClient
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Client\Kernel\AbstractClient
+            methodNames:
+                - getFactory
+                - getFacade
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Client\Kernel\AbstractPlugin
+            methodNames:
+                - getClient
+                - getFactory
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Shared\Kernel\AbstractBundleConfig
+            methodNames:
+                - getSharedConfig
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\Console\Console
+            methodNames:
+                - getFacade
+                - getQueryContainer
+                - getFactory
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\Controller\AbstractController
+            methodNames:
+                - getFacade
+                - getQueryContainer
+                - getFactory
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\Business\AbstractFacade
+            methodNames:
+                - getFactory
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\AbstractPlugin
+            methodNames:
+                - getFacade
+                - getFactory
+                - getQueryContainer
+                - getConfig
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\Persistence\AbstractQueryContainer
+            methodNames:
+                - getFactory
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Service\Kernel\AbstractService
+            methodNames:
+                - getFactory
+                - getConfig
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Yves\Kernel\Form\AbstractType
+            methodNames:
+                - getFactory
+                - getConfig
+                - getQueryContainer
+
+    -
+        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
+        arguments:
+            className: Spryker\Zed\Kernel\Communication\Form\AbstractType
+            methodNames:
+                - getFacade
+                - getFactory
+                - getConfig
+                - getQueryContainer

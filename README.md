@@ -3,48 +3,24 @@
 [![License](https://poser.pugx.org/spryker/code-sniffer/license.svg)](https://packagist.org/packages/spryker-sdk/phpstan-spryker)
 
 
-## Documentation
-See https://github.com/phpstan/phpstan
+* [PHPStan](https://github.com/phpstan/phpstan)
+
+This extension provides following features:
+
+* Notifies you when you try to use `getConfig()`, `getClient()`, `getFacade()`, `getFactory()`, `getSharedConfig()`, `getQueryContainer()` methods without specifying theirs types in a class's DocBlock.
 
 
 ## Usage
 
 ### How to use in Spryker projects
-Make sure you include the repo as `require-dev` dependency:
+To use this extension, require it in [Composer](https://getcomposer.org/). Make sure you include the repo as `require-dev` dependency:
 ```
 composer require --dev spryker-sdk/phpstan-spryker
 ```
 
-The [Development](https://github.com/spryker/Development) module provides a convenience command:
+And include extension.neon in your project's PHPStan config:
+
 ```
-console code:phpstan
-```
-This will run over your project code by default.
-
-`-v` is useful for more info output.
-
-### How to use in any project
-You can also manually invoke the command:
-```
-vendor/bin/phpstan analyze -c /path/to/phpstan.neon src/ -l 1
-```
-
-For larger repositories you might have to raise the memory limit:
-```
-php -d memory_limit=512M vendor/bin/phpstan analyze ... 
-```
-
-## Integrating into CI testing and PRs
-
-Please see the [Spryker Demoshop](https://github.com/spryker/demoshop) repository for details. It is used there.
-
-## Writing new extensions
-Run `composer install` to have the dependencies installed.
-
-Add new TypeExtension classes to the corresponding category inside src/ folder.
-
-### Runninng sniffer/fixer on your changes
-```
-composer cs-check
-composer cs-fix
+includes:
+	- vendor/spryker-sdk/phpstan-spryker/extension.neon
 ```
