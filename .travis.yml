@@ -6,7 +6,7 @@ env:
   - dependencies=lowest
   - dependencies=highest
 before_script:
-  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --no-interaction; fi;
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi;
   - if [ "$dependencies" = "highest" ]; then composer update --no-interaction; fi;
 script:
   - vendor/bin/phing
