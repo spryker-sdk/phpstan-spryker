@@ -2,7 +2,7 @@
 
 /**
  * MIT License
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
 namespace PHPStan\Type\Spryker;
@@ -13,105 +13,149 @@ use PHPStan\Cache\Cache;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 
 class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtension
 {
+    /**
+     * @var \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension
+     */
+    private $annotationsMethodsClassReflectionExtension;
 
-	/** @var \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension */
-	private $annotationsMethodsClassReflectionExtension;
+    /**
+     * @var \PHPStan\Cache\Cache
+     */
+    private $cache;
 
-	/** @var \PHPStan\Cache\Cache */
-	private $cache;
+    /**
+     * @var string
+     */
+    protected $className;
 
-	/** @var string */
-	protected $className;
+    /**
+     * @var string[]
+     */
+    protected $methodNames;
 
-	/** @var string[] */
-	protected $methodNames;
+    /**
+     * @param \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
+     * @param \PHPStan\Cache\Cache $cache
+     * @param string $className
+     * @param array $methodNames
+     */
+    public function __construct(
+        AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
+        Cache $cache,
+        string $className,
+        array $methodNames
+    ) {
+        $this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
+        $this->cache = $cache;
+        $this->className = $className;
+        $this->methodNames = $methodNames;
+    }
 
-	public function __construct(
-		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
-		Cache $cache,
-		string $className,
-		array $methodNames
-	)
-	{
-		$this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
-		$this->cache = $cache;
-		$this->className = $className;
-		$this->methodNames = $methodNames;
-	}
+    /**
+     * @return string
+     */
+    public function getClass(): string
+    {
+        return $this->className;
+    }
 
-	public function getClass(): string
-	{
-		return $this->className;
-	}
+    /**
+     * @param \PHPStan\Reflection\MethodReflection $methodReflection
+     *
+     * @return bool
+     */
+    public function isMethodSupported(MethodReflection $methodReflection): bool
+    {
+        if (in_array($methodReflection->getName(), $this->methodNames, true)) {
+            return true;
+        }
 
-	public function isMethodSupported(MethodReflection $methodReflection): bool
-	{
-		if (in_array($methodReflection->getName(), $this->methodNames, true)) {
-			return true;
-		}
+        return false;
+    }
 
-		return false;
-	}
+    /**
+     * @param \PHPStan\Reflection\MethodReflection $methodReflection
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param \PHPStan\Analyser\Scope $scope
+     *
+     * @return \PHPStan\Type\Type
+     */
+    public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+    {
+        $cacheKey = $this->generateCacheKey($methodReflection, $scope);
+        $type = $this->getCachedValue($cacheKey);
 
-	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
-	{
-		$cacheKey = $this->generateCacheKey($methodReflection, $scope);
-		$type = $this->getCachedValue($cacheKey);
+        if ($type instanceof Type) {
+            return $type;
+        }
 
-		if ($type instanceof Type) {
-			return $type;
-		}
+        $type = $this->getTypeFromAnnotationsMethodClassReflection($methodReflection, $scope);
+        $this->saveCachedValue($cacheKey, $type);
 
-		$type = $this->getTypeFromAnnotationsMethodClassReflection($methodReflection, $scope);
-		$this->saveCachedValue($cacheKey, $type);
+        return $type;
+    }
 
-		return $type;
-	}
+    /**
+     * @param \PHPStan\Reflection\MethodReflection $methodReflection
+     * @param \PHPStan\Analyser\Scope $scope
+     *
+     * @throws \PHPStan\ShouldNotHappenException
+     *
+     * @return \PHPStan\Type\Type
+     */
+    protected function getTypeFromAnnotationsMethodClassReflection(MethodReflection $methodReflection, Scope $scope): Type
+    {
+        if (!$scope->isInClass()) {
+            throw new ShouldNotHappenException();
+        }
 
-	/**
-	 * @param \PHPStan\Reflection\MethodReflection $methodReflection
-	 * @param \PHPStan\Analyser\Scope $scope
-	 *
-	 * @throws \PHPStan\ShouldNotHappenException
-	 *
-	 * @return \PHPStan\Type\Type
-	 */
-	protected function getTypeFromAnnotationsMethodClassReflection(MethodReflection $methodReflection, Scope $scope): Type
-	{
-		if (!$scope->isInClass()) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+        if (!$this->annotationsMethodsClassReflectionExtension->hasMethod($scope->getClassReflection(), $methodReflection->getName())) {
+            return new ErrorType();
+        }
 
-		if (!$this->annotationsMethodsClassReflectionExtension->hasMethod($scope->getClassReflection(), $methodReflection->getName())) {
-			return new ErrorType();
-		}
+        $annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($scope->getClassReflection(), $methodReflection->getName());
 
-		$annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($scope->getClassReflection(), $methodReflection->getName());
+        return ParametersAcceptorSelector::selectSingle($annotationMethod->getVariants())->getReturnType();
+    }
 
-		return ParametersAcceptorSelector::selectSingle($annotationMethod->getVariants())->getReturnType();
-	}
+    /**
+     * @param string $cacheKey
+     * @param \PHPStan\Type\Type $value
+     *
+     * @return void
+     */
+    protected function saveCachedValue(string $cacheKey, Type $value): void
+    {
+        $this->cache->save($cacheKey, $value);
+    }
 
-	protected function saveCachedValue(string $cacheKey, Type $value): void
-	{
-		$this->cache->save($cacheKey, $value);
-	}
+    /**
+     * @param string $cacheKey
+     *
+     * @return \PHPStan\Type\Type|null
+     */
+    protected function getCachedValue(string $cacheKey): ?Type
+    {
+        return $this->cache->load($cacheKey);
+    }
 
-	protected function getCachedValue(string $cacheKey): ?Type
-	{
-		return $this->cache->load($cacheKey);
-	}
+    /**
+     * @param \PHPStan\Reflection\MethodReflection $methodReflection
+     * @param \PHPStan\Analyser\Scope $scope
+     *
+     * @return string
+     */
+    protected function generateCacheKey(MethodReflection $methodReflection, Scope $scope): string
+    {
+        $filePath = $scope->getFile();
 
-	protected function generateCacheKey(MethodReflection $methodReflection, Scope $scope): string
-	{
-		$filePath = $scope->getFile();
-
-		return sprintf('%s-%d-%s', $filePath, filemtime($filePath), $methodReflection->getName());
-	}
-
+        return sprintf('%s-%d-%s', $filePath, filemtime($filePath), $methodReflection->getName());
+    }
 }

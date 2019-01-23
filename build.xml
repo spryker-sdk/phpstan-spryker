@@ -32,31 +32,25 @@
 
     <target name="cs">
         <exec
-                executable="vendor/bin/phpcs"
+                executable="composer cs-check"
                 logoutput="true"
                 passthru="true"
                 checkreturn="true"
         >
-            <arg value="--extensions=php"/>
-            <arg value="--encoding=utf-8"/>
-            <arg value="--tab-width=4"/>
-            <arg value="-sp"/>
-            <arg path="src"/>
+            <arg path="src/"/>
+            <arg path="tests/"/>
         </exec>
     </target>
 
     <target name="cs-fix">
         <exec
-                executable="vendor/bin/phpcbf"
+                executable="composer cs-fix"
                 logoutput="true"
                 passthru="true"
                 checkreturn="true"
         >
-            <arg value="--extensions=php"/>
-            <arg value="--encoding=utf-8"/>
-            <arg value="--tab-width=4"/>
-            <arg value="-sp"/>
-            <arg path="src"/>
+            <arg path="src/"/>
+            <arg path="tests/"/>
         </exec>
     </target>
 

@@ -30,9 +30,16 @@
       "PHPStan\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "PHPStan\\Test\\": "tests/"
+    }
+  },
   "scripts": {
-    "cs-check": "phpcs --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v --ignore=/phpstan/vendor/ ./",
-    "cs-fix": "phpcbf --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v --ignore=/phpstan/vendor/ ./"
+    "test": "php phpunit.phar",
+    "test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-6.5.13.phar && mv phpunit-6.5.13.phar phpunit.phar || true",
+    "cs-check": "phpcs --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v src/ tests/",
+    "cs-fix": "phpcbf --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v src/ tests/"
   },
   "support": {
     "source": "https://github.com/spryker-sdk/phpstan-spryker"
