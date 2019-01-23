@@ -46,7 +46,7 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
     }
 
     /**
-     * @param \PhpParser\Node\Expr\MethodCall|Node $node
+     * @param \PhpParser\Node\Expr\MethodCall $node
      * @param \PHPStan\Analyser\Scope $scope
      *
      * @return string[]
