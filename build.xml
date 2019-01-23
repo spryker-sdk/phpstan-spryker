@@ -32,11 +32,12 @@
 
     <target name="cs">
         <exec
-                executable="composer cs-check"
+                executable="composer"
                 logoutput="true"
                 passthru="true"
                 checkreturn="true"
         >
+            <arg value="cs-check"/>
             <arg path="src/"/>
             <arg path="tests/"/>
         </exec>
@@ -44,11 +45,12 @@
 
     <target name="cs-fix">
         <exec
-                executable="composer cs-fix"
+                executable="composer"
                 logoutput="true"
                 passthru="true"
                 checkreturn="true"
         >
+            <arg value="cs-fix"/>
             <arg path="src/"/>
             <arg path="tests/"/>
         </exec>
