@@ -3,16 +3,16 @@
   "description": "Spryker PHPStan Extensions",
   "license": "MIT",
   "keywords": ["phpstan", "analyzing"],
-  "homepage": "http://spryker.com",
+  "homepage": "https://spryker.com",
   "authors": [
     {
       "name": "Spryker",
-      "homepage": "http://spryker.com"
+      "homepage": "https://spryker.com"
     }
   ],
   "require": {
     "php": ">=7.1",
-    "phpstan/phpstan": "^0.10.2"
+    "phpstan/phpstan": "^0.11.1"
   },
   "require-dev": {
     "jakub-onderka/php-parallel-lint": "^1.0",
@@ -23,7 +23,7 @@
     "spryker/code-sniffer": "dev-master",
     "slevomat/coding-standard": "^4.7.2",
     "consistence/coding-standard": "^3.5",
-    "phpstan/phpstan-strict-rules": "^0.10"
+    "phpstan/phpstan-strict-rules": "^0.11"
   },
   "autoload": {
     "psr-4": {
