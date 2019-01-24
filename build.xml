@@ -38,8 +38,6 @@
                 checkreturn="true"
         >
             <arg value="cs-check"/>
-            <arg path="src/"/>
-            <arg path="tests/"/>
         </exec>
     </target>
 
@@ -51,24 +49,17 @@
                 checkreturn="true"
         >
             <arg value="cs-fix"/>
-            <arg path="src/"/>
-            <arg path="tests/"/>
         </exec>
     </target>
 
     <target name="phpstan">
         <exec
-                executable="vendor/bin/phpstan"
+                executable="composer"
                 logoutput="true"
                 passthru="true"
                 checkreturn="true"
         >
-            <arg value="analyse"/>
-            <arg value="-l"/>
-            <arg value="7"/>
-            <arg value="-c"/>
-            <arg path="tests/phpstan.neon"/>
-            <arg path="src"/>
+            <arg value="phpstan"/>
         </exec>
     </target>
 
