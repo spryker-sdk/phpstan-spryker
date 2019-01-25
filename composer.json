@@ -40,8 +40,8 @@
     "test": "php phpunit.phar",
     "test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-6.5.13.phar && mv phpunit-6.5.13.phar phpunit.phar || true",
     "phpstan": "vendor/bin/phpstan analyze -c tests/phpstan.neon -l 7 src/",
-    "cs-check": "phpcs --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v src/ tests/",
-    "cs-fix": "phpcbf --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -v src/ tests/"
+    "cs-check": "phpcs -v src/ tests/",
+    "cs-fix": "phpcbf -v src/ tests/"
   },
   "support": {
     "source": "https://github.com/spryker-sdk/phpstan-spryker"
