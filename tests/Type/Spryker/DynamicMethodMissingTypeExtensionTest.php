@@ -17,7 +17,7 @@ class DynamicMethodMissingTypeExtensionTest extends TestCase
     /**
      * @return void
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $extension = $this->getMockBuilder(AnnotationsMethodsClassReflectionExtension::class)->disableOriginalConstructor()->getMock();
         $cache = $this->getMockBuilder(Cache::class)->disableOriginalConstructor()->getMock();

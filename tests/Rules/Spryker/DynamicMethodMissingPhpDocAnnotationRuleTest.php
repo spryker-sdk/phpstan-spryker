@@ -15,7 +15,7 @@ class DynamicMethodMissingPhpDocAnnotationRuleTest extends TestCase
     /**
      * @return void
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $instance = new DynamicMethodMissingPhpDocAnnotationRule('test', []);
         $this->assertInstanceOf(DynamicMethodMissingPhpDocAnnotationRule::class, $instance);
