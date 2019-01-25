@@ -9,3 +9,7 @@ services:
 			removeNullMethodName: getClassReflection
 		tags:
 			- phpstan.typeSpecifier.methodTypeSpecifyingExtension
+
+parameters:
+	ignoreErrors:
+		- '#Parameter \#1 .+ should be contravariant with parameter .+ of method .+Rule::processNode\(\)#'
