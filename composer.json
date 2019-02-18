@@ -15,15 +15,14 @@
     "phpstan/phpstan": "^0.10.2"
   },
   "require-dev": {
+    "consistence/coding-standard": "^3.5",
     "jakub-onderka/php-parallel-lint": "^1.0",
     "localheinz/composer-normalize": "~0.9.0",
     "phing/phing": "^2.16.0",
-    "spryker/kernel": "*",
-    "squizlabs/php_codesniffer": "^3.3.1",
-    "spryker/code-sniffer": "dev-master",
+    "phpstan/phpstan-strict-rules": "^0.10",
     "slevomat/coding-standard": "^4.7.2",
-    "consistence/coding-standard": "^3.5",
-    "phpstan/phpstan-strict-rules": "^0.10"
+    "spryker/code-sniffer": "*",
+    "squizlabs/php_codesniffer": "^3.3.1"
   },
   "autoload": {
     "psr-4": {
@@ -41,6 +40,7 @@
   "prefer-stable": true,
   "config": {
     "use-include-path": true,
-    "process-timeout": 600
+    "process-timeout": 600,
+    "sort-packages": true
   }
 }
