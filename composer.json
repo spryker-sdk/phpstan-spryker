@@ -18,12 +18,8 @@
     "jakub-onderka/php-parallel-lint": "^1.0",
     "localheinz/composer-normalize": "~0.9.0",
     "phing/phing": "^2.16.0",
-    "spryker/kernel": "*",
-    "squizlabs/php_codesniffer": "^3.3.1",
-    "spryker/code-sniffer": "dev-master",
-    "slevomat/coding-standard": "^4.7.2",
-    "consistence/coding-standard": "^3.5",
-    "phpstan/phpstan-strict-rules": "^0.11"
+    "phpstan/phpstan-strict-rules": "^0.11",
+    "spryker/code-sniffer": "*"
   },
   "autoload": {
     "psr-4": {
@@ -48,8 +44,14 @@
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
   "config": {
     "use-include-path": true,
-    "process-timeout": 600
+    "process-timeout": 600,
+    "sort-packages": true
   }
 }
