@@ -19,7 +19,7 @@
     "localheinz/composer-normalize": "~0.9.0",
     "phing/phing": "^2.16.0",
     "phpstan/phpstan-strict-rules": "^0.11",
-    "spryker/code-sniffer": "*"
+    "spryker/code-sniffer": "^0.14"
   },
   "autoload": {
     "psr-4": {
