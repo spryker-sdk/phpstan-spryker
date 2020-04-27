@@ -43,7 +43,6 @@
   "support": {
     "source": "https://github.com/spryker-sdk/phpstan-spryker"
   },
-  "minimum-stability": "dev",
   "prefer-stable": true,
   "extra": {
     "branch-alias": {
