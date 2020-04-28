@@ -14,3 +14,7 @@ parameters:
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
+        -
+            message: "#^Parameter \\#1 \\$node \\(PhpParser\\\\Node\\\\Expr\\\\MethodCall\\) of method PHPStan\\\\Rules\\\\Spryker\\\\DynamicMethodMissingPhpDocAnnotationRule\\:\\:processNode\\(\\) should be contravariant with parameter \\$node \\(PhpParser\\\\Node\\) of method PHPStan\\\\Rules\\\\Rule\\<PhpParser\\\\Node\\>\\:\\:processNode\\(\\)$#"
+            count: 1
+            path: ../src/Rules/Spryker/DynamicMethodMissingPhpDocAnnotationRule.php
