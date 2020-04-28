@@ -37,6 +37,9 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
         $this->methodNames = $methodNames;
     }
 
+    /**
+     * @return string
+     */
     public function getNodeType(): string
     {
         return MethodCall::class;
