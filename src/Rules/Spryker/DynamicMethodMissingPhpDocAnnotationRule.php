@@ -29,7 +29,7 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
 
     /**
      * @param string $className
-     * @param array $methodNames
+     * @param string[] $methodNames
      */
     public function __construct(string $className, array $methodNames)
     {
@@ -37,9 +37,6 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
         $this->methodNames = $methodNames;
     }
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return MethodCall::class;
