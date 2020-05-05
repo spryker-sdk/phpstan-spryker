@@ -44,7 +44,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
      * @param \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
      * @param \PHPStan\Cache\Cache $cache
      * @param string $className
-     * @param array $methodNames
+     * @param string[] $methodNames
      */
     public function __construct(
         AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
@@ -89,15 +89,15 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
      */
     public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
     {
-        $cacheKey = $this->generateCacheKey($methodReflection, $scope);
-        $type = $this->getCachedValue($cacheKey);
+        [$cacheKey, $variableCacheKey] = $this->generateCacheKeys($methodReflection, $scope);
+        $type = $this->getCachedValue($cacheKey, $variableCacheKey);
 
         if ($type instanceof Type) {
             return $type;
         }
 
         $type = $this->getTypeFromAnnotationsMethodClassReflection($methodReflection, $scope);
-        $this->saveCachedValue($cacheKey, $type);
+        $this->saveCachedValue($cacheKey, $variableCacheKey, $type);
 
         return $type;
     }
@@ -127,35 +127,45 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
 
     /**
      * @param string $cacheKey
+     * @param string $variableCacheKey
      * @param \PHPStan\Type\Type $value
      *
      * @return void
      */
-    protected function saveCachedValue(string $cacheKey, Type $value): void
+    protected function saveCachedValue(string $cacheKey, string $variableCacheKey, Type $value): void
     {
-        $this->cache->save($cacheKey, $value);
+        $this->cache->save($cacheKey, $variableCacheKey, $value);
     }
 
     /**
      * @param string $cacheKey
+     * @param string $variableCacheKey
      *
      * @return \PHPStan\Type\Type|null
      */
-    protected function getCachedValue(string $cacheKey): ?Type
+    protected function getCachedValue(string $cacheKey, string $variableCacheKey): ?Type
     {
-        return $this->cache->load($cacheKey);
+        return $this->cache->load($cacheKey, $variableCacheKey);
     }
 
     /**
      * @param \PHPStan\Reflection\MethodReflection $methodReflection
      * @param \PHPStan\Analyser\Scope $scope
      *
-     * @return string
+     * @return string[]
      */
-    protected function generateCacheKey(MethodReflection $methodReflection, Scope $scope): string
+    protected function generateCacheKeys(MethodReflection $methodReflection, Scope $scope): array
     {
         $filePath = $scope->getFile();
+        $modifiedTime = filemtime($filePath);
 
-        return sprintf('%s-%d-%s', $filePath, filemtime($filePath), $methodReflection->getName());
+        if ($modifiedTime === false) {
+            $modifiedTime = time();
+        }
+
+        $cacheKey = sprintf('%s-%d-%s', $filePath, filemtime($filePath), $methodReflection->getName());
+        $variableCacheKey = sprintf('%d-filemtime', $modifiedTime);
+
+        return [$cacheKey, $variableCacheKey];
     }
 }

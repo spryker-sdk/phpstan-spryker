@@ -29,7 +29,7 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
 
     /**
      * @param string $className
-     * @param array $methodNames
+     * @param string[] $methodNames
      */
     public function __construct(string $className, array $methodNames)
     {
