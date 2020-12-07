@@ -1,5 +1,5 @@
 # Spryker PHPStan Extensions
-[![Build Status](https://api.travis-ci.org/spryker-sdk/phpstan-spryker.svg?branch=master)](https://travis-ci.org/spryker-sdk/phpstan-spryker)
+[![Build Status](https://github.com/spryker-sdk/phpstan-spryker/workflows/CI/badge.svg?branch=master)](https://github.com/spryker-sdk/phpstan-spryker/actions?query=workflow%3ACI+branch%3Amaster)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/spryker/code-sniffer/license.svg)](https://packagist.org/packages/spryker-sdk/phpstan-spryker)
 
