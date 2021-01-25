@@ -19,9 +19,14 @@ To use this extension, require it in [Composer](https://getcomposer.org/). Make 
 composer require --dev spryker-sdk/phpstan-spryker
 ```
 
-And include extension.neon in your project's PHPStan config:
+You can use [phpstan/extension-installer](https://github.com/phpstan/extension-installer) to automatically load the configuration:
+```
+composer require --dev phpstan/extension-installer
+```
+
+Or include the `extension.neon` manually in your project's PHPStan config:
 
 ```
 includes:
-	- vendor/spryker-sdk/phpstan-spryker/extension.neon
+    - vendor/spryker-sdk/phpstan-spryker/extension.neon
 ```
