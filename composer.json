@@ -47,6 +47,11 @@
   "extra": {
     "branch-alias": {
       "dev-master": "1.0.x-dev"
+    },
+    "phpstan": {
+      "includes": [
+        "extension.neon"
+      ]
     }
   },
   "config": {
