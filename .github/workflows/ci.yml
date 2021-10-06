@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: [ '7.2', 8.0' ]
+        php-version: [ '7.2', '8.0' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -42,9 +42,12 @@ jobs:
 
       - name: Composer install
         run: composer install --prefer-dist --no-interaction
-        
+
       - name: Test
-        run: composer test-setup && composer test
+        run: composer test
+
+      - name: PHPStan
+        run: composer stan
 
   prefer-lowest:
     runs-on: ubuntu-20.04
