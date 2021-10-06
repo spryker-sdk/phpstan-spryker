@@ -15,6 +15,7 @@
     ],
     "require": {
         "php": ">=7.2",
+        "phpunit/phpunit": "^8.5 || ^9.5",
         "phpstan/phpstan": "^0.12.4"
     },
     "require-dev": {
@@ -37,9 +38,8 @@
     },
     "scripts": {
         "travis": "vendor/bin/phing",
-        "test": "php phpunit.phar",
-        "test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-6.5.13.phar && mv phpunit-6.5.13.phar phpunit.phar || true",
-        "phpstan": "vendor/bin/phpstan analyze -c tests/phpstan.neon -l 7 src/",
+        "test": "phpunit",
+        "stan": "vendor/bin/phpstan analyze -c tests/phpstan.neon -l 8 src/",
         "cs-check": "phpcs -p -s src/ tests/",
         "cs-fix": "phpcbf -p src/ tests/"
     },
