@@ -15,10 +15,27 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
         -
-            message: "#^Parameter \\#1 \\$node \\(PhpParser\\\\Node\\\\Expr\\\\MethodCall\\) of method PHPStan\\\\Rules\\\\Spryker\\\\DynamicMethodMissingPhpDocAnnotationRule\\:\\:processNode\\(\\) should be contravariant with parameter \\$node \\(PhpParser\\\\Node\\) of method PHPStan\\\\Rules\\\\Rule\\<PhpParser\\\\Node\\>\\:\\:processNode\\(\\)$#"
+            message: "#.+DynamicMethodMissingPhpDocAnnotationRule::processNode\\(\\) should be contravariant with parameter .+ of method .+Node\\>::processNode\\(\\)#"
             count: 1
             path: ../src/Rules/Spryker/DynamicMethodMissingPhpDocAnnotationRule.php
         -
             message: "#.+DynamicMethodMissingPhpDocAnnotationRule::getNodeType\\(\\) should be covariant with return type .+ of method .+Node\\>::getNodeType\\(\\)#"
             count: 1
             path: ../src/Rules/Spryker/DynamicMethodMissingPhpDocAnnotationRule.php
+        -
+            message: '#Calling PHPStan\\Cache\\Cache::load\(\) .+.#'
+            count: 1
+            path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php'
+        -
+            message: '#Calling PHPStan\\Cache\\Cache::save\(\) .+.#'
+            count: 1
+            path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php'
+        -
+            message: '#Calling PHPStan\\Reflection\\Annotations\\AnnotationsMethodsClassReflectionExtension::getMethod\(\) .+.#'
+            count: 1
+            path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php'
+        -
+            message: '#Calling PHPStan\\Reflection\\Annotations\\AnnotationsMethodsClassReflectionExtension::hasMethod\(\) .+.#'
+            count: 1
+            path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php'
+    reportUnmatchedIgnoredErrors: false
