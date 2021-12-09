@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPStan\\": "src/"
+            "SprykerSdk\\PHPStanSpryker\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PHPStan\\Test\\": "tests/"
+            "SprykerSdk\\PHPStanSpryker\\Test\\": "tests/"
         }
     },
     "scripts": {
