@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace PHPStan\Rules\Spryker;
+namespace SprykerSdk\PHPStanSpryker\Rules\Spryker;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;

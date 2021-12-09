@@ -1,0 +1,8 @@
+parameters:
+    checkMissingIterableValueType: false
+    ignoreErrors:
+        - { message: '#Calling PHPStan\\Cache\\Cache::load\(\) .+.#', path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php' }
+        - { message: '#Calling PHPStan\\Cache\\Cache::save\(\) .+.#', path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php' }
+        - { message: '#Calling PHPStan\\Reflection\\Annotations\\AnnotationsMethodsClassReflectionExtension::getMethod\(\) .+.#', path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php' }
+        - { message: '#Calling PHPStan\\Reflection\\Annotations\\AnnotationsMethodsClassReflectionExtension::hasMethod\(\) .+.#', path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php' }
+    reportUnmatchedIgnoredErrors: false

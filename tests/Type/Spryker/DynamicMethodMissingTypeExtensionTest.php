@@ -9,7 +9,7 @@ namespace PHPStan\Test\Rules\Spryker;
 
 use PHPStan\Cache\Cache;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
-use PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension;
+use SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension;
 use PHPUnit\Framework\TestCase;
 
 class DynamicMethodMissingTypeExtensionTest extends TestCase

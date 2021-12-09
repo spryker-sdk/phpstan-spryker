@@ -1,7 +1,7 @@
 services:
     # Rules
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -11,7 +11,7 @@ services:
                 - getFacade
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -21,7 +21,7 @@ services:
                 - getClient
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -31,7 +31,7 @@ services:
                 - getFacade
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -41,7 +41,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -50,7 +50,7 @@ services:
                 - getSharedConfig
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -61,7 +61,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -72,7 +72,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -81,7 +81,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -93,7 +93,7 @@ services:
                 - getConfig
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -102,7 +102,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -112,7 +112,7 @@ services:
                 - getConfig
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -123,7 +123,7 @@ services:
                 - getQueryContainer
 
     -
-        class: PHPStan\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule
         tags:
             - phpstan.rules.rule
         arguments:
@@ -136,7 +136,7 @@ services:
 
     # Extensions
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -146,7 +146,7 @@ services:
                 - getFacade
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -156,7 +156,7 @@ services:
                 - getClient
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -166,7 +166,7 @@ services:
                 - getFacade
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -176,7 +176,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -185,7 +185,7 @@ services:
                 - getSharedConfig
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -196,7 +196,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -207,7 +207,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -216,7 +216,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -228,7 +228,7 @@ services:
                 - getConfig
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -237,7 +237,7 @@ services:
                 - getFactory
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -247,7 +247,7 @@ services:
                 - getConfig
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
@@ -258,7 +258,7 @@ services:
                 - getQueryContainer
 
     -
-        class: PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension
+        class: SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
         arguments:
