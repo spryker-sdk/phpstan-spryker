@@ -5,11 +5,11 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace PHPStan\Test\Rules\Spryker;
+namespace SprykerSdk\PHPStanSpryker\Test\Rules\Spryker;
 
 use PHPStan\Cache\Cache;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
-use PHPStan\Type\Spryker\DynamicMethodMissingTypeExtension;
+use SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension;
 use PHPUnit\Framework\TestCase;
 
 class DynamicMethodMissingTypeExtensionTest extends TestCase
