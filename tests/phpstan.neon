@@ -12,7 +12,6 @@ services:
 
 parameters:
     checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
         -
             message: "#.+DynamicMethodMissingPhpDocAnnotationRule::processNode\\(\\) should be contravariant with parameter .+ of method .+Node\\>::processNode\\(\\)#"
