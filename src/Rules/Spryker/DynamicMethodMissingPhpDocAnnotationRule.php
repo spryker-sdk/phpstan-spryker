@@ -15,6 +15,9 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 
+/**
+ * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\MethodCall>
+ */
 class DynamicMethodMissingPhpDocAnnotationRule implements Rule
 {
     /**
@@ -38,6 +41,8 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
     }
 
     /**
+     * @phpstan-return class-string<\PhpParser\Node\Expr\MethodCall>
+     *
      * @return string
      */
     public function getNodeType(): string
