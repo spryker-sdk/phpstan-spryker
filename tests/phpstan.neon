@@ -1,15 +1,6 @@
 includes:
     - ../vendor/phpstan/phpstan-strict-rules/rules.neon
 
-services:
-    scopeIsInClass:
-        class: PHPStan\Internal\ScopeIsInClassTypeSpecifyingExtension
-        arguments:
-            isInMethodName: isInClass
-            removeNullMethodName: getClassReflection
-        tags:
-            - phpstan.typeSpecifier.methodTypeSpecifyingExtension
-
 parameters:
     checkMissingIterableValueType: false
     ignoreErrors:
