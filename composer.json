@@ -16,7 +16,7 @@
     "require": {
         "php": ">=8.0",
         "phpunit/phpunit": "^9.5",
-        "phpstan/phpstan": "~1.9.0"
+        "phpstan/phpstan": "1.9.16"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.1.1",
