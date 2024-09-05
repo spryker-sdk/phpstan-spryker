@@ -8,6 +8,7 @@
 namespace SprykerSdk\PHPStanSpryker\Test\Rules\Spryker;
 
 use PHPStan\Cache\Cache;
+use PHPStan\Cache\CacheStorage;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,7 @@ class DynamicMethodMissingTypeExtensionTest extends TestCase
     {
         $instance = new DynamicMethodMissingTypeExtension(
             new AnnotationsMethodsClassReflectionExtension(),
-            new Cache(),
+            new Cache($this->createMock(CacheStorage::class)),
             'test',
             []
         );
