@@ -50,7 +50,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     }
 
     /**
-     * @return string
+     * @return class-string
      */
     public function getClass(): string
     {

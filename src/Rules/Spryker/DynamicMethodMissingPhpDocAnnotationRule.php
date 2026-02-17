@@ -55,7 +55,7 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
      * @param \PhpParser\Node\Expr\MethodCall $node
      * @param \PHPStan\Analyser\Scope $scope
      *
-     * @return list<\PHPStan\Rules\RuleError>
+     * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
     public function processNode(Node $node, Scope $scope): array
     {
