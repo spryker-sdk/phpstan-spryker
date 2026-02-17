@@ -25,7 +25,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     private $annotationsMethodsClassReflectionExtension;
 
     /**
-     * @var string
+     * @var class-string
      */
     protected $className;
 
@@ -36,7 +36,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
 
     /**
      * @param \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
-     * @param string $className
+     * @param class-string $className
      * @param string[] $methodNames
      */
     public function __construct(
