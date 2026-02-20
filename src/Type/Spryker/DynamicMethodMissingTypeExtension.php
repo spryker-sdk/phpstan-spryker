@@ -9,7 +9,6 @@ namespace SprykerSdk\PHPStanSpryker\Type\Spryker;
 
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
-use PHPStan\Cache\Cache;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -26,12 +25,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     private $annotationsMethodsClassReflectionExtension;
 
     /**
-     * @var \PHPStan\Cache\Cache
-     */
-    private $cache;
-
-    /**
-     * @var string
+     * @var class-string
      */
     protected $className;
 
@@ -42,24 +36,21 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
 
     /**
      * @param \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
-     * @param \PHPStan\Cache\Cache $cache
-     * @param string $className
+     * @param class-string $className
      * @param string[] $methodNames
      */
     public function __construct(
         AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
-        Cache $cache,
         string $className,
         array $methodNames
     ) {
         $this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
-        $this->cache = $cache;
         $this->className = $className;
         $this->methodNames = $methodNames;
     }
 
     /**
-     * @return string
+     * @return class-string
      */
     public function getClass(): string
     {
@@ -89,28 +80,19 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
      */
     public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
     {
-        [$cacheKey, $variableCacheKey] = $this->generateCacheKeys($methodReflection, $scope);
-        $type = $this->getCachedValue($cacheKey, $variableCacheKey);
-
-        if ($type instanceof Type) {
-            return $type;
-        }
-
-        $type = $this->getTypeFromAnnotationsMethodClassReflection($methodReflection, $scope);
-        $this->saveCachedValue($cacheKey, $variableCacheKey, $type);
-
-        return $type;
+        return $this->getTypeFromAnnotationsMethodClassReflection($methodReflection, $methodCall, $scope);
     }
 
     /**
      * @param \PHPStan\Reflection\MethodReflection $methodReflection
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      * @param \PHPStan\Analyser\Scope $scope
      *
      * @throws \PHPStan\ShouldNotHappenException
      *
      * @return \PHPStan\Type\Type
      */
-    protected function getTypeFromAnnotationsMethodClassReflection(MethodReflection $methodReflection, Scope $scope): Type
+    protected function getTypeFromAnnotationsMethodClassReflection(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
     {
         if (!$scope->isInClass()) {
             throw new ShouldNotHappenException();
@@ -122,50 +104,6 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
 
         $annotationMethod = $this->annotationsMethodsClassReflectionExtension->getMethod($scope->getClassReflection(), $methodReflection->getName());
 
-        return ParametersAcceptorSelector::selectSingle($annotationMethod->getVariants())->getReturnType();
-    }
-
-    /**
-     * @param string $cacheKey
-     * @param string $variableCacheKey
-     * @param \PHPStan\Type\Type $value
-     *
-     * @return void
-     */
-    protected function saveCachedValue(string $cacheKey, string $variableCacheKey, Type $value): void
-    {
-        $this->cache->save($cacheKey, $variableCacheKey, $value);
-    }
-
-    /**
-     * @param string $cacheKey
-     * @param string $variableCacheKey
-     *
-     * @return \PHPStan\Type\Type|null
-     */
-    protected function getCachedValue(string $cacheKey, string $variableCacheKey): ?Type
-    {
-        return $this->cache->load($cacheKey, $variableCacheKey);
-    }
-
-    /**
-     * @param \PHPStan\Reflection\MethodReflection $methodReflection
-     * @param \PHPStan\Analyser\Scope $scope
-     *
-     * @return string[]
-     */
-    protected function generateCacheKeys(MethodReflection $methodReflection, Scope $scope): array
-    {
-        $filePath = $scope->getFile();
-        $modifiedTime = filemtime($filePath);
-
-        if ($modifiedTime === false) {
-            $modifiedTime = time();
-        }
-
-        $cacheKey = sprintf('%s-%d-%s', $filePath, filemtime($filePath), $methodReflection->getName());
-        $variableCacheKey = sprintf('%d-filemtime', $modifiedTime);
-
-        return [$cacheKey, $variableCacheKey];
+        return ParametersAcceptorSelector::selectFromArgs($scope, $methodCall->getArgs(), $annotationMethod->getVariants())->getReturnType();
     }
 }

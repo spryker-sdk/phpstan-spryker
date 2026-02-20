@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 
@@ -54,7 +55,7 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
      * @param \PhpParser\Node\Expr\MethodCall $node
      * @param \PHPStan\Analyser\Scope $scope
      *
-     * @return string[]
+     * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -79,6 +80,10 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
             return [];
         }
 
-        return [sprintf('Missing @method annotation for "%s()" in the PHPDoc for class', $node->name->name)];
+        return [
+            RuleErrorBuilder::message(sprintf('Missing @method annotation for "%s()" in the PHPDoc for class', $node->name->name))
+                ->identifier('spryker.missingMethodAnnotation')
+                ->build(),
+        ];
     }
 }
