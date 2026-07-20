@@ -37,9 +37,13 @@ class RepositoryOrmWriteCallRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testRepositoryMayNotCallWriteMethodsOnOrmEntities(): void
+    public function testGivenARepositoryCallingWriteMethodsOnOrmEntitiesWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/RepositoryReadWriteSplitRule/FixtureModuleRepository.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/RepositoryReadWriteSplitRule/FixtureModuleRepository.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository calls save() on Orm\Zed\Comment\Persistence\SpyComment; repositories are read-only — move writes to the EntityManager (.claude/rules/persistence-repository.md).',
                 33,

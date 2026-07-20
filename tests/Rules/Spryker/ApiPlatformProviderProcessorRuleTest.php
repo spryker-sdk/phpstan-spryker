@@ -37,9 +37,13 @@ class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testProcessorMustReceiveSerializerAndReturnNullableObject(): void
+    public function testGivenAProcessorMissingSerializerAndNullableReturnWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/BadProcessor.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/BadProcessor.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'API Platform state class Pyz\Glue\FixtureModule\Api\Storefront\Processor\BadProcessor must receive Symfony\Component\Serializer\SerializerInterface via its constructor.',
                 10,
@@ -54,9 +58,13 @@ class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testProviderMustReceiveSerializer(): void
+    public function testGivenAProviderMissingSerializerWhenAnalysedThenAnErrorIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/BadProvider.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/BadProvider.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'API Platform state class Pyz\Glue\FixtureModule\Api\Storefront\Provider\BadProvider must receive Symfony\Component\Serializer\SerializerInterface via its constructor.',
                 10,
@@ -67,8 +75,12 @@ class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testCompliantProcessorReportsNothing(): void
+    public function testGivenACompliantProcessorWhenAnalysedThenNothingIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/GoodProcessor.php'], []);
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/GoodProcessor.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], []);
     }
 }

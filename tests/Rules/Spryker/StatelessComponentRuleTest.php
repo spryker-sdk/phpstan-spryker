@@ -29,9 +29,13 @@ class StatelessComponentRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testStatefulModelReportsMutableState(): void
+    public function testGivenAStatefulBusinessModelWithMutableStateWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/StatelessComponentRule/StatefulModel.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/StatelessComponentRule/StatefulModel.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Static property Pyz\Zed\FixtureModule\Business\Model\StatefulModel::$cache is shared mutable state; Business/Service/Client components must be stateless (.claude/rules/component-statelessness.md).',
                 9,
@@ -54,11 +58,16 @@ class StatelessComponentRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testCleanAndExemptClassesReportNothing(): void
+    public function testGivenCleanAndExemptClassesWhenAnalysedThenNothingIsReported(): void
     {
+        // Arrange
+        $cleanModelFixture = __DIR__ . '/../../Fixtures/StatelessComponentRule/CleanModel.php';
+        $exemptConfigFixture = __DIR__ . '/../../Fixtures/StatelessComponentRule/FixtureModuleConfig.php';
+
+        // Act & Assert
         $this->analyse([
-            __DIR__ . '/../../Fixtures/StatelessComponentRule/CleanModel.php',
-            __DIR__ . '/../../Fixtures/StatelessComponentRule/FixtureModuleConfig.php',
+            $cleanModelFixture,
+            $exemptConfigFixture,
         ], []);
     }
 }

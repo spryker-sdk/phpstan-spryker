@@ -29,9 +29,13 @@ class MapperMethodShapeRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testPersistenceMapperMethodsMustBeWellShaped(): void
+    public function testGivenAPersistenceMapperWithMisnamedAndUnderparameterisedMethodsWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/MapperMethodShapeRule/CommentMapper.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/MapperMethodShapeRule/CommentMapper.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Persistence mapper Pyz\Zed\FixtureModule\Persistence\Propel\Mapper\CommentMapper declares public method convertComment(); mapper methods must be named map[Source]To[Target] (.claude/rules/mapper-pattern.md).',
                 19,
@@ -50,8 +54,12 @@ class MapperMethodShapeRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testBusinessMapperIsExempt(): void
+    public function testGivenABusinessMapperWhenAnalysedThenNothingIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/MapperMethodShapeRule/BusinessMapper.php'], []);
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/MapperMethodShapeRule/BusinessMapper.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], []);
     }
 }

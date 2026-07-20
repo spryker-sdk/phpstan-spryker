@@ -37,9 +37,13 @@ class GatewayControllerActionSignatureRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testGatewayActionsMustHaveTransferInAndOut(): void
+    public function testGivenGatewayActionsWithoutTransferInAndOutWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/GatewayControllerActionSignatureRule/GatewayController.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/GatewayControllerActionSignatureRule/GatewayController.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
                 27,
@@ -62,8 +66,12 @@ class GatewayControllerActionSignatureRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testNonGatewayControllerIsExempt(): void
+    public function testGivenANonGatewayControllerWhenAnalysedThenNothingIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/GatewayControllerActionSignatureRule/RegularController.php'], []);
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/GatewayControllerActionSignatureRule/RegularController.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], []);
     }
 }

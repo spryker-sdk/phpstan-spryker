@@ -29,9 +29,13 @@ class PersistenceSignatureTransferOnlyRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testEntityManagerSignaturesMayNotLeakOrmEntities(): void
+    public function testGivenAnEntityManagerLeakingOrmEntitiesInParametersWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/PersistenceSignatureTransferOnlyRule/FixtureModuleEntityManager.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/PersistenceSignatureTransferOnlyRule/FixtureModuleEntityManager.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleEntityManager::saveComment() takes Propel entity type Orm\Zed\Comment\Persistence\SpyComment as a parameter; Repository/EntityManager signatures must use transfer objects or primitives only (.claude/rules/persistence-repository.md, persistence-entity-manager.md).',
                 12,
@@ -46,9 +50,13 @@ class PersistenceSignatureTransferOnlyRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testRepositoryInterfaceSignaturesMayNotLeakOrmEntities(): void
+    public function testGivenARepositoryInterfaceLeakingOrmEntitiesInReturnTypeWhenAnalysedThenAnErrorIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/PersistenceSignatureTransferOnlyRule/FixtureModuleRepositoryInterface.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/PersistenceSignatureTransferOnlyRule/FixtureModuleRepositoryInterface.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleRepositoryInterface::getCommentEntity() returns Propel entity type Orm\Zed\Comment\Persistence\SpyComment; Repository/EntityManager signatures must use transfer objects or primitives only (.claude/rules/persistence-repository.md, persistence-entity-manager.md).',
                 14,

@@ -29,9 +29,13 @@ class RepositoryReadWriteSplitRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testRepositoryPublicMethodsMustUseReadVerbs(): void
+    public function testGivenARepositoryWithPublicMethodsNotUsingReadVerbsWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/RepositoryReadWriteSplitRule/FixtureModuleRepository.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/RepositoryReadWriteSplitRule/FixtureModuleRepository.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository declares public method saveComment(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter) (.claude/rules/persistence-repository.md).',
                 31,
@@ -46,9 +50,13 @@ class RepositoryReadWriteSplitRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testEntityManagerPublicMethodsMustUseWriteVerbs(): void
+    public function testGivenAnEntityManagerWithPublicMethodsNotUsingWriteVerbsWhenAnalysedThenErrorsAreReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/RepositoryReadWriteSplitRule/FixtureModuleEntityManager.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/RepositoryReadWriteSplitRule/FixtureModuleEntityManager.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'EntityManager Pyz\Zed\FixtureModule\Persistence\FixtureModuleEntityManager declares public method findComment(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...) (.claude/rules/persistence-entity-manager.md).',
                 21,

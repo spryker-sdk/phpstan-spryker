@@ -29,9 +29,13 @@ class ExpanderReturnRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testBusinessExpanderMayNotReturnVoid(): void
+    public function testGivenABusinessExpanderReturningVoidWhenAnalysedThenAnErrorIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/ExpanderReturnRule/CommentExpander.php'], [
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/ExpanderReturnRule/CommentExpander.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], [
             [
                 'Expander method Pyz\Zed\FixtureModule\Business\Expander\CommentExpander::expandInPlace() returns void; expanders must return the enriched transfer object (.claude/rules/expander-pattern.md).',
                 16,
@@ -42,8 +46,12 @@ class ExpanderReturnRuleTest extends RuleTestCase
     /**
      * @return void
      */
-    public function testCommunicationExpanderIsExempt(): void
+    public function testGivenACommunicationExpanderReturningVoidWhenAnalysedThenNothingIsReported(): void
     {
-        $this->analyse([__DIR__ . '/../../Fixtures/ExpanderReturnRule/FormExpander.php'], []);
+        // Arrange
+        $fixture = __DIR__ . '/../../Fixtures/ExpanderReturnRule/FormExpander.php';
+
+        // Act & Assert
+        $this->analyse([$fixture], []);
     }
 }
