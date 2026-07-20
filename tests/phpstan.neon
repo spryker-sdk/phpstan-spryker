@@ -7,6 +7,11 @@ services:
         class: SprykerSdk\PHPStanSpryker\Rules\Spryker\ClassConstantNativeTypeHintRule
         tags:
             - phpstan.rules.rule
+    # Self-enforcement: this package's own source must use natively typed properties.
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\PropertyNativeTypeHintRule
+        tags:
+            - phpstan.rules.rule
 
 parameters:
     ignoreErrors:

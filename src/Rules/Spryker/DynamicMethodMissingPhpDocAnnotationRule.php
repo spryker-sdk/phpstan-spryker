@@ -23,15 +23,12 @@ use PHPStan\Type\ObjectType;
  */
 class DynamicMethodMissingPhpDocAnnotationRule implements Rule
 {
-    /**
-     * @var string
-     */
-    protected $className;
+    protected string $className;
 
     /**
      * @var array<string>
      */
-    protected $methodNames;
+    protected array $methodNames;
 
     /**
      * @param array<string> $methodNames

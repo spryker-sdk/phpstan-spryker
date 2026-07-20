@@ -21,20 +21,17 @@ use PHPStan\Type\Type;
 
 class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtension
 {
-    /**
-     * @var \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension
-     */
-    private $annotationsMethodsClassReflectionExtension;
+    private AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension;
 
     /**
      * @var class-string
      */
-    protected $className;
+    protected string $className;
 
     /**
      * @var array<string>
      */
-    protected $methodNames;
+    protected array $methodNames;
 
     /**
      * @param class-string $className
