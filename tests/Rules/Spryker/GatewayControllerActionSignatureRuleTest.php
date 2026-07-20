@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * MIT License
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace SprykerSdk\PHPStanSpryker\Test\Rules\Spryker;
+
+use PHPStan\Rules\Rule;
+use PHPStan\Testing\RuleTestCase;
+use SprykerSdk\PHPStanSpryker\Rules\Spryker\GatewayControllerActionSignatureRule;
+
+/**
+ * @extends \PHPStan\Testing\RuleTestCase<\SprykerSdk\PHPStanSpryker\Rules\Spryker\GatewayControllerActionSignatureRule>
+ */
+class GatewayControllerActionSignatureRuleTest extends RuleTestCase
+{
+    /**
+     * @return \PHPStan\Rules\Rule<\PHPStan\Node\InClassMethodNode>
+     */
+    protected function getRule(): Rule
+    {
+        return new GatewayControllerActionSignatureRule($this->createReflectionProvider());
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function getAdditionalConfigFiles(): array
+    {
+        return [__DIR__ . '/../../rule-test.neon'];
+    }
+
+    /**
+     * @return void
+     */
+    public function testGatewayActionsMustHaveTransferInAndOut(): void
+    {
+        $this->analyse([__DIR__ . '/../../Fixtures/GatewayControllerActionSignatureRule/GatewayController.php'], [
+            [
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                27,
+            ],
+            [
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamCountAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                32,
+            ],
+            [
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badReturnAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                37,
+            ],
+            [
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::noReturnTypeAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                42,
+            ],
+        ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function testNonGatewayControllerIsExempt(): void
+    {
+        $this->analyse([__DIR__ . '/../../Fixtures/GatewayControllerActionSignatureRule/RegularController.php'], []);
+    }
+}

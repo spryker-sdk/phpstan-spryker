@@ -34,7 +34,10 @@
     "autoload-dev": {
         "psr-4": {
             "SprykerSdk\\PHPStanSpryker\\Test\\": "tests/"
-        }
+        },
+        "classmap": [
+            "tests/Fixtures/"
+        ]
     },
     "scripts": {
         "travis": "vendor/bin/phing",

@@ -2,4 +2,7 @@
 <ruleset name="SprykerStrict">
     <rule ref="vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml">
     </rule>
+
+    <!-- Rule test fixtures intentionally violate conventions to exercise the rules. -->
+    <exclude-pattern>*/tests/Fixtures/*</exclude-pattern>
 </ruleset>

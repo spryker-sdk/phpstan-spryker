@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * MIT License
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace SprykerSdk\PHPStanSpryker\Test\Rules\Spryker;
+
+use PHPStan\Rules\Rule;
+use PHPStan\Testing\RuleTestCase;
+use SprykerSdk\PHPStanSpryker\Rules\Spryker\ApiPlatformProviderProcessorRule;
+
+/**
+ * @extends \PHPStan\Testing\RuleTestCase<\SprykerSdk\PHPStanSpryker\Rules\Spryker\ApiPlatformProviderProcessorRule>
+ */
+class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
+{
+    /**
+     * @return \PHPStan\Rules\Rule<\PHPStan\Node\InClassNode>
+     */
+    protected function getRule(): Rule
+    {
+        return new ApiPlatformProviderProcessorRule($this->createReflectionProvider());
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function getAdditionalConfigFiles(): array
+    {
+        return [__DIR__ . '/../../rule-test.neon'];
+    }
+
+    /**
+     * @return void
+     */
+    public function testProcessorMustReceiveSerializerAndReturnNullableObject(): void
+    {
+        $this->analyse([__DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/BadProcessor.php'], [
+            [
+                'API Platform state class Pyz\Glue\FixtureModule\Api\Storefront\Processor\BadProcessor must receive Symfony\Component\Serializer\SerializerInterface via its constructor.',
+                10,
+            ],
+            [
+                'API Platform processor Pyz\Glue\FixtureModule\Api\Storefront\Processor\BadProcessor::process() must declare an ?object (or object|null) return type.',
+                20,
+            ],
+        ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function testProviderMustReceiveSerializer(): void
+    {
+        $this->analyse([__DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/BadProvider.php'], [
+            [
+                'API Platform state class Pyz\Glue\FixtureModule\Api\Storefront\Provider\BadProvider must receive Symfony\Component\Serializer\SerializerInterface via its constructor.',
+                10,
+            ],
+        ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCompliantProcessorReportsNothing(): void
+    {
+        $this->analyse([__DIR__ . '/../../Fixtures/ApiPlatformProviderProcessorRule/GoodProcessor.php'], []);
+    }
+}

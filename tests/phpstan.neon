@@ -2,6 +2,7 @@ includes:
     - ../vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
+    treatPhpDocTypesAsCertain: false
     ignoreErrors:
         -
             message: "#.+DynamicMethodMissingPhpDocAnnotationRule::processNode\\(\\) should be contravariant with parameter .+ of method .+Node\\>::processNode\\(\\)#"
@@ -27,6 +28,12 @@ parameters:
             message: '#Calling PHPStan\\Reflection\\Annotations\\AnnotationsMethodsClassReflectionExtension::hasMethod\(\) .+.#'
             count: 1
             path: '%rootDir%/../../../src/Type/Spryker/DynamicMethodMissingTypeExtension.php'
+        -
+            message: "#::processNode\\(\\) should be contravariant with parameter .+ of method .+\\>::processNode\\(\\)#"
+            path: ../src/Rules/Spryker/*.php
+        -
+            message: "#::getNodeType\\(\\) should be covariant with return type .+ of method .+\\>::getNodeType\\(\\)#"
+            path: ../src/Rules/Spryker/*.php
         -
             identifier: missing.iterableValueType
     reportUnmatchedIgnoredErrors: false
