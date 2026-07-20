@@ -26,7 +26,7 @@ class ClassConstantNativeTypeHintRuleTest extends RuleTestCase
         return new ClassConstantNativeTypeHintRule();
     }
 
-    public function testGivenUntypedConstantsWhenAnalysedThenEachIsReported(): void
+    public function testGivenClassConstantsWithoutNativeTypeHintsWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
         $prefix = 'Class constant SprykerSdk\PHPStanSpryker\Test\Fixtures\ClassConstants\ClassWithConstants::';

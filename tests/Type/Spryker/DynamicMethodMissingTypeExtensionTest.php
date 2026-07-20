@@ -13,13 +13,16 @@ use SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension;
 
 class DynamicMethodMissingTypeExtensionTest extends TestCase
 {
-    public function testInstance(): void
+    public function testGivenDependenciesWhenConstructedThenAnInstanceOfTheExtensionIsReturned(): void
     {
+        // Arrange & Act
         $instance = new DynamicMethodMissingTypeExtension(
             new AnnotationsMethodsClassReflectionExtension(),
             'test',
             [],
         );
+
+        // Assert
         $this->assertInstanceOf(DynamicMethodMissingTypeExtension::class, $instance);
     }
 }
