@@ -23,32 +23,23 @@ use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Gateway controller actions are the Client-to-Zed RPC boundary: exactly one transfer parameter,
- * transfer (or nullable transfer) return. See .claude/rules/gateway-controller.md.
+ * transfer (or nullable transfer) return.
  *
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InClassMethodNode>
  */
 final class GatewayControllerActionSignatureRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const ABSTRACT_GATEWAY_CONTROLLER = 'Spryker\\Zed\\Kernel\\Communication\\Controller\\AbstractGatewayController';
+    private const string ABSTRACT_GATEWAY_CONTROLLER = 'Spryker\\Zed\\Kernel\\Communication\\Controller\\AbstractGatewayController';
+
+    private const string ABSTRACT_TRANSFER = 'Spryker\\Shared\\Kernel\\Transfer\\AbstractTransfer';
 
     /**
-     * @var string
-     */
-    private const ABSTRACT_TRANSFER = 'Spryker\\Shared\\Kernel\\Transfer\\AbstractTransfer';
-
-    /**
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     * Resolves whether the parameter and return types are transfer classes.
      */
     public function __construct(private readonly ReflectionProvider $reflectionProvider)
     {
     }
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return InClassMethodNode::class;
@@ -56,7 +47,6 @@ final class GatewayControllerActionSignatureRule implements Rule
 
     /**
      * @param \PHPStan\Node\InClassMethodNode $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -83,7 +73,7 @@ final class GatewayControllerActionSignatureRule implements Rule
 
         return [
             RuleErrorBuilder::message(sprintf(
-                'Gateway action %s::%s() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                'Gateway action %s::%s() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type.',
                 $classReflection->getName(),
                 $methodName,
             ))
@@ -92,12 +82,6 @@ final class GatewayControllerActionSignatureRule implements Rule
         ];
     }
 
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $methodNode
-     * @param \PHPStan\Analyser\Scope $scope
-     *
-     * @return bool
-     */
     private function hasValidParameter(ClassMethod $methodNode, Scope $scope): bool
     {
         $params = $methodNode->getParams();
@@ -113,12 +97,6 @@ final class GatewayControllerActionSignatureRule implements Rule
         return $this->isTransferClass($scope->resolveName($paramType));
     }
 
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $methodNode
-     * @param \PHPStan\Analyser\Scope $scope
-     *
-     * @return bool
-     */
     private function hasValidReturnType(ClassMethod $methodNode, Scope $scope): bool
     {
         $returnType = $methodNode->returnType;
@@ -138,12 +116,6 @@ final class GatewayControllerActionSignatureRule implements Rule
         return false;
     }
 
-    /**
-     * @param \PhpParser\Node\UnionType $unionType
-     * @param \PHPStan\Analyser\Scope $scope
-     *
-     * @return bool
-     */
     private function isNullableTransferUnion(UnionType $unionType, Scope $scope): bool
     {
         if (count($unionType->types) !== 2) {
@@ -167,11 +139,6 @@ final class GatewayControllerActionSignatureRule implements Rule
         return $hasNull && $hasTransfer;
     }
 
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
     private function isTransferClass(string $className): bool
     {
         if (!$this->reflectionProvider->hasClass($className)) {

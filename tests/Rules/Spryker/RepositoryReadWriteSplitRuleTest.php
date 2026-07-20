@@ -26,9 +26,6 @@ class RepositoryReadWriteSplitRuleTest extends RuleTestCase
         return new RepositoryReadWriteSplitRule();
     }
 
-    /**
-     * @return void
-     */
     public function testGivenARepositoryWithPublicMethodsNotUsingReadVerbsWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -37,19 +34,16 @@ class RepositoryReadWriteSplitRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository declares public method saveComment(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter) (.claude/rules/persistence-repository.md).',
+                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository declares public method saveComment(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter).',
                 31,
             ],
             [
-                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository declares public method removeComment(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter) (.claude/rules/persistence-repository.md).',
+                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository declares public method removeComment(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter).',
                 36,
             ],
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenAnEntityManagerWithPublicMethodsNotUsingWriteVerbsWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -58,11 +52,11 @@ class RepositoryReadWriteSplitRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'EntityManager Pyz\Zed\FixtureModule\Persistence\FixtureModuleEntityManager declares public method findComment(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...) (.claude/rules/persistence-entity-manager.md).',
+                'EntityManager Pyz\Zed\FixtureModule\Persistence\FixtureModuleEntityManager declares public method findComment(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...).',
                 21,
             ],
             [
-                'EntityManager Pyz\Zed\FixtureModule\Persistence\FixtureModuleEntityManager declares public method getCommentCount(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...) (.claude/rules/persistence-entity-manager.md).',
+                'EntityManager Pyz\Zed\FixtureModule\Persistence\FixtureModuleEntityManager declares public method getCommentCount(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...).',
                 26,
             ],
         ]);

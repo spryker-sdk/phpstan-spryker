@@ -26,25 +26,16 @@ use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Business models, Services and Client components must be stateless: no property writes after
- * construction, no static mutable state. See .claude/rules/component-statelessness.md.
+ * construction, no static mutable state.
  *
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InClassNode>
  */
 final class StatelessComponentRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const SCOPE_NAMESPACE_PATTERN = '#\\\\(Business|Service|Client)\\\\#';
+    private const string SCOPE_NAMESPACE_PATTERN = '#\\\\(Business|Service|Client)\\\\#';
 
-    /**
-     * @var string
-     */
-    private const EXCLUDED_CLASS_NAME_PATTERN = '#(Config|Factory|DependencyProvider)$#';
+    private const string EXCLUDED_CLASS_NAME_PATTERN = '#(Config|Factory|DependencyProvider)$#';
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return InClassNode::class;
@@ -52,7 +43,6 @@ final class StatelessComponentRule implements Rule
 
     /**
      * @param \PHPStan\Node\InClassNode $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -80,7 +70,7 @@ final class StatelessComponentRule implements Rule
             }
 
             $errors[] = RuleErrorBuilder::message(sprintf(
-                'Static property %s::$%s is shared mutable state; Business/Service/Client components must be stateless (.claude/rules/component-statelessness.md).',
+                'Static property %s::$%s is shared mutable state; Business/Service/Client components must be stateless.',
                 $className,
                 $property->props[0]->name->toString(),
             ))
@@ -103,7 +93,7 @@ final class StatelessComponentRule implements Rule
 
             foreach ($propertyWrites as $propertyWrite) {
                 $errors[] = RuleErrorBuilder::message(sprintf(
-                    'Property written outside the constructor in %s::%s(); components in Business/Service/Client must not hold mutable state between calls (.claude/rules/component-statelessness.md).',
+                    'Property written outside the constructor in %s::%s(); components in Business/Service/Client must not hold mutable state between calls.',
                     $className,
                     $method->name->toString(),
                 ))
@@ -116,11 +106,6 @@ final class StatelessComponentRule implements Rule
         return $errors;
     }
 
-    /**
-     * @param \PhpParser\Node $node
-     *
-     * @return bool
-     */
     private static function isPropertyWrite(Node $node): bool
     {
         if (

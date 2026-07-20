@@ -26,9 +26,6 @@ class ExpanderReturnRuleTest extends RuleTestCase
         return new ExpanderReturnRule();
     }
 
-    /**
-     * @return void
-     */
     public function testGivenABusinessExpanderReturningVoidWhenAnalysedThenAnErrorIsReported(): void
     {
         // Arrange
@@ -37,15 +34,12 @@ class ExpanderReturnRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Expander method Pyz\Zed\FixtureModule\Business\Expander\CommentExpander::expandInPlace() returns void; expanders must return the enriched transfer object (.claude/rules/expander-pattern.md).',
+                'Expander method Pyz\Zed\FixtureModule\Business\Expander\CommentExpander::expandInPlace() returns void; expanders must return the enriched transfer object.',
                 16,
             ],
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenACommunicationExpanderReturningVoidWhenAnalysedThenNothingIsReported(): void
     {
         // Arrange

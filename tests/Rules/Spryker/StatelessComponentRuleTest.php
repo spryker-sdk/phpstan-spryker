@@ -26,9 +26,6 @@ class StatelessComponentRuleTest extends RuleTestCase
         return new StatelessComponentRule();
     }
 
-    /**
-     * @return void
-     */
     public function testGivenAStatefulBusinessModelWithMutableStateWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -37,27 +34,24 @@ class StatelessComponentRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Static property Pyz\Zed\FixtureModule\Business\Model\StatefulModel::$cache is shared mutable state; Business/Service/Client components must be stateless (.claude/rules/component-statelessness.md).',
+                'Static property Pyz\Zed\FixtureModule\Business\Model\StatefulModel::$cache is shared mutable state; Business/Service/Client components must be stateless.',
                 9,
             ],
             [
-                'Property written outside the constructor in Pyz\Zed\FixtureModule\Business\Model\StatefulModel::remember(); components in Business/Service/Client must not hold mutable state between calls (.claude/rules/component-statelessness.md).',
+                'Property written outside the constructor in Pyz\Zed\FixtureModule\Business\Model\StatefulModel::remember(); components in Business/Service/Client must not hold mutable state between calls.',
                 19,
             ],
             [
-                'Property written outside the constructor in Pyz\Zed\FixtureModule\Business\Model\StatefulModel::accumulate(); components in Business/Service/Client must not hold mutable state between calls (.claude/rules/component-statelessness.md).',
+                'Property written outside the constructor in Pyz\Zed\FixtureModule\Business\Model\StatefulModel::accumulate(); components in Business/Service/Client must not hold mutable state between calls.',
                 26,
             ],
             [
-                'Property written outside the constructor in Pyz\Zed\FixtureModule\Business\Model\StatefulModel::append(); components in Business/Service/Client must not hold mutable state between calls (.claude/rules/component-statelessness.md).',
+                'Property written outside the constructor in Pyz\Zed\FixtureModule\Business\Model\StatefulModel::append(); components in Business/Service/Client must not hold mutable state between calls.',
                 31,
             ],
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenCleanAndExemptClassesWhenAnalysedThenNothingIsReported(): void
     {
         // Arrange

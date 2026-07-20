@@ -34,9 +34,6 @@ class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
         return [__DIR__ . '/../../rule-test.neon'];
     }
 
-    /**
-     * @return void
-     */
     public function testGivenAProcessorMissingSerializerAndNullableReturnWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -55,9 +52,6 @@ class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenAProviderMissingSerializerWhenAnalysedThenAnErrorIsReported(): void
     {
         // Arrange
@@ -72,9 +66,6 @@ class ApiPlatformProviderProcessorRuleTest extends RuleTestCase
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenACompliantProcessorWhenAnalysedThenNothingIsReported(): void
     {
         // Arrange

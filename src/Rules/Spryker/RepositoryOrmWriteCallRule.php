@@ -19,25 +19,18 @@ use PHPStan\Rules\RuleErrorBuilder;
 /**
  * Companion to RepositoryReadWriteSplitRule: flags ->save()/->delete() calls on Orm entities or
  * queries inside a Repository (write operations belong in the EntityManager).
- * See .claude/rules/persistence-repository.md.
  *
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\MethodCall>
  */
 final class RepositoryOrmWriteCallRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const REPOSITORY_CLASS_PATTERN = '#\\\\Persistence\\\\[^\\\\]*Repository$#';
+    private const string REPOSITORY_CLASS_PATTERN = '#\\\\Persistence\\\\[^\\\\]*Repository$#';
 
     /**
      * @var list<string>
      */
-    private const WRITE_METHOD_NAMES = ['save', 'delete'];
+    private const array WRITE_METHOD_NAMES = ['save', 'delete'];
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return MethodCall::class;
@@ -45,7 +38,6 @@ final class RepositoryOrmWriteCallRule implements Rule
 
     /**
      * @param \PhpParser\Node\Expr\MethodCall $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -78,7 +70,7 @@ final class RepositoryOrmWriteCallRule implements Rule
 
             return [
                 RuleErrorBuilder::message(sprintf(
-                    'Repository %s calls %s() on %s; repositories are read-only — move writes to the EntityManager (.claude/rules/persistence-repository.md).',
+                    'Repository %s calls %s() on %s; repositories are read-only — move writes to the EntityManager.',
                     $className,
                     $calledMethodName,
                     $receiverClassName,

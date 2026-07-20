@@ -23,7 +23,6 @@ final class NativeTypeNames
      * Resolves every class name referenced by a native type node (plain, nullable, union, intersection).
      *
      * @param \PhpParser\Node\Identifier|\PhpParser\Node\Name|\PhpParser\Node\ComplexType $typeNode
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<string>
      */
@@ -55,11 +54,6 @@ final class NativeTypeNames
         return [];
     }
 
-    /**
-     * @param string $className
-     *
-     * @return string
-     */
     public static function shortName(string $className): string
     {
         $separatorPosition = strrpos($className, '\\');

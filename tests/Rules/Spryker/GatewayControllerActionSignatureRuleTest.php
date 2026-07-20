@@ -34,9 +34,6 @@ class GatewayControllerActionSignatureRuleTest extends RuleTestCase
         return [__DIR__ . '/../../rule-test.neon'];
     }
 
-    /**
-     * @return void
-     */
     public function testGivenGatewayActionsWithoutTransferInAndOutWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -45,27 +42,24 @@ class GatewayControllerActionSignatureRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type.',
                 27,
             ],
             [
-                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamCountAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badParamCountAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type.',
                 32,
             ],
             [
-                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badReturnAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::badReturnAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type.',
                 37,
             ],
             [
-                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::noReturnTypeAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type (.claude/rules/gateway-controller.md).',
+                'Gateway action Pyz\Zed\FixtureModule\Communication\Controller\GatewayController::noReturnTypeAction() must accept exactly one transfer object parameter and declare a transfer (or nullable transfer) return type.',
                 42,
             ],
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenANonGatewayControllerWhenAnalysedThenNothingIsReported(): void
     {
         // Arrange

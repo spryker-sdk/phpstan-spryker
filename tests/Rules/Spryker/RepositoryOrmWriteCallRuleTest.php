@@ -34,9 +34,6 @@ class RepositoryOrmWriteCallRuleTest extends RuleTestCase
         return [__DIR__ . '/../../rule-test.neon'];
     }
 
-    /**
-     * @return void
-     */
     public function testGivenARepositoryCallingWriteMethodsOnOrmEntitiesWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -45,11 +42,11 @@ class RepositoryOrmWriteCallRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository calls save() on Orm\Zed\Comment\Persistence\SpyComment; repositories are read-only — move writes to the EntityManager (.claude/rules/persistence-repository.md).',
+                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository calls save() on Orm\Zed\Comment\Persistence\SpyComment; repositories are read-only — move writes to the EntityManager.',
                 33,
             ],
             [
-                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository calls delete() on Orm\Zed\Comment\Persistence\SpyComment; repositories are read-only — move writes to the EntityManager (.claude/rules/persistence-repository.md).',
+                'Repository Pyz\Zed\FixtureModule\Persistence\FixtureModuleRepository calls delete() on Orm\Zed\Comment\Persistence\SpyComment; repositories are read-only — move writes to the EntityManager.',
                 38,
             ],
         ]);

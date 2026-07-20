@@ -17,43 +17,30 @@ use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Repositories are read-only, EntityManagers are write-only: the public method verb must match the
- * side of the split. See .claude/rules/persistence-repository.md and persistence-entity-manager.md.
+ * side of the split.
  *
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InClassMethodNode>
  */
 final class RepositoryReadWriteSplitRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const REPOSITORY_CLASS_PATTERN = '#\\\\Persistence\\\\[^\\\\]*Repository$#';
+    private const string REPOSITORY_CLASS_PATTERN = '#\\\\Persistence\\\\[^\\\\]*Repository$#';
 
-    /**
-     * @var string
-     */
-    private const ENTITY_MANAGER_CLASS_PATTERN = '#\\\\Persistence\\\\[^\\\\]*EntityManager$#';
+    private const string ENTITY_MANAGER_CLASS_PATTERN = '#\\\\Persistence\\\\[^\\\\]*EntityManager$#';
 
     /**
      * Base verbs (find|get|has|count|is|expand) extended with read verbs already used by core
      * Repository interfaces: check, exists, search, are, verify, iterate, aggregate, filter.
-     *
-     * @var string
      */
-    private const REPOSITORY_METHOD_PATTERN = '#^(find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter)([A-Z0-9_]|$)#';
+    private const string REPOSITORY_METHOD_PATTERN = '#^(find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter)([A-Z0-9_]|$)#';
 
     /**
      * Base verbs (create|update|delete|save) extended with write verbs already used by core
      * EntityManager interfaces: remove, add, set, persist, invalidate, upsert, unset, revoke,
      * reset, commit, clear, bulk, assign, write, store, mark, hide, fill, close, activate,
      * deactivate.
-     *
-     * @var string
      */
-    private const ENTITY_MANAGER_METHOD_PATTERN = '#^(create|update|delete|save|remove|add|set|persist|invalidate|upsert|unset|revoke|reset|commit|clear|bulk|assign|write|store|mark|hide|fill|close|activate|deactivate)([A-Z0-9_]|$)#';
+    private const string ENTITY_MANAGER_METHOD_PATTERN = '#^(create|update|delete|save|remove|add|set|persist|invalidate|upsert|unset|revoke|reset|commit|clear|bulk|assign|write|store|mark|hide|fill|close|activate|deactivate)([A-Z0-9_]|$)#';
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return InClassMethodNode::class;
@@ -61,7 +48,6 @@ final class RepositoryReadWriteSplitRule implements Rule
 
     /**
      * @param \PHPStan\Node\InClassMethodNode $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -89,7 +75,7 @@ final class RepositoryReadWriteSplitRule implements Rule
         if ($isRepository && preg_match(static::REPOSITORY_METHOD_PATTERN, $methodName) !== 1) {
             return [
                 RuleErrorBuilder::message(sprintf(
-                    'Repository %s declares public method %s(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter) (.claude/rules/persistence-repository.md).',
+                    'Repository %s declares public method %s(); repositories are read-only and public methods must start with a read verb (find|get|has|count|is|expand|check|exists|search|are|verify|iterate|aggregate|filter).',
                     $className,
                     $methodName,
                 ))
@@ -101,7 +87,7 @@ final class RepositoryReadWriteSplitRule implements Rule
         if ($isEntityManager && preg_match(static::ENTITY_MANAGER_METHOD_PATTERN, $methodName) !== 1) {
             return [
                 RuleErrorBuilder::message(sprintf(
-                    'EntityManager %s declares public method %s(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...) (.claude/rules/persistence-entity-manager.md).',
+                    'EntityManager %s declares public method %s(); entity managers are write-only and public methods must start with a write verb (create|update|delete|save|remove|add|set|persist|...).',
                     $className,
                     $methodName,
                 ))

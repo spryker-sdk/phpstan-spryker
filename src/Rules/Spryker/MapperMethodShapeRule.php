@@ -17,25 +17,16 @@ use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Persistence mappers only transform: public methods are map[Source]To[Target](source, target)
- * — the caller provides the target object. See .claude/rules/mapper-pattern.md.
+ * — the caller provides the target object.
  *
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InClassMethodNode>
  */
 final class MapperMethodShapeRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const MAP_METHOD_PATTERN = '#^map([A-Z0-9_]|$)#';
+    private const string MAP_METHOD_PATTERN = '#^map([A-Z0-9_]|$)#';
 
-    /**
-     * @var int
-     */
-    private const MIN_PARAMETER_COUNT = 2;
+    private const int MIN_PARAMETER_COUNT = 2;
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return InClassMethodNode::class;
@@ -43,7 +34,6 @@ final class MapperMethodShapeRule implements Rule
 
     /**
      * @param \PHPStan\Node\InClassMethodNode $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -69,7 +59,7 @@ final class MapperMethodShapeRule implements Rule
 
         if (preg_match(static::MAP_METHOD_PATTERN, $methodName) !== 1) {
             $errors[] = RuleErrorBuilder::message(sprintf(
-                'Persistence mapper %s declares public method %s(); mapper methods must be named map[Source]To[Target] (.claude/rules/mapper-pattern.md).',
+                'Persistence mapper %s declares public method %s(); mapper methods must be named map[Source]To[Target].',
                 $className,
                 $methodName,
             ))
@@ -79,7 +69,7 @@ final class MapperMethodShapeRule implements Rule
 
         if (count($methodNode->getParams()) < static::MIN_PARAMETER_COUNT) {
             $errors[] = RuleErrorBuilder::message(sprintf(
-                'Persistence mapper method %s::%s() takes fewer than 2 parameters; mappers must accept both the source and the caller-provided target object (.claude/rules/mapper-pattern.md).',
+                'Persistence mapper method %s::%s() takes fewer than 2 parameters; mappers must accept both the source and the caller-provided target object.',
                 $className,
                 $methodName,
             ))

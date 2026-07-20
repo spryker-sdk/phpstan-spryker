@@ -18,21 +18,15 @@ use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * Business-layer expanders must return the enriched transfer object, never void
- * (.claude/rules/expander-pattern.md scopes to Business/**; Form/Request expanders in
- * Communication/Yves/Glue mutate builders and are legitimately void).
+ * (scoped to Business/**; Form/Request expanders in Communication/Yves/Glue mutate
+ * builders and are legitimately void).
  *
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InClassMethodNode>
  */
 final class ExpanderReturnRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const EXPAND_METHOD_PATTERN = '#^expand([A-Z0-9_]|$)#';
+    private const string EXPAND_METHOD_PATTERN = '#^expand([A-Z0-9_]|$)#';
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return InClassMethodNode::class;
@@ -40,7 +34,6 @@ final class ExpanderReturnRule implements Rule
 
     /**
      * @param \PHPStan\Node\InClassMethodNode $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -64,7 +57,7 @@ final class ExpanderReturnRule implements Rule
 
         return [
             RuleErrorBuilder::message(sprintf(
-                'Expander method %s::%s() returns void; expanders must return the enriched transfer object (.claude/rules/expander-pattern.md).',
+                'Expander method %s::%s() returns void; expanders must return the enriched transfer object.',
                 $className,
                 $methodName,
             ))

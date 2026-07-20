@@ -26,9 +26,6 @@ class PersistenceSignatureTransferOnlyRuleTest extends RuleTestCase
         return new PersistenceSignatureTransferOnlyRule();
     }
 
-    /**
-     * @return void
-     */
     public function testGivenAnEntityManagerLeakingOrmEntitiesInParametersWhenAnalysedThenErrorsAreReported(): void
     {
         // Arrange
@@ -37,19 +34,16 @@ class PersistenceSignatureTransferOnlyRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleEntityManager::saveComment() takes Propel entity type Orm\Zed\Comment\Persistence\SpyComment as a parameter; Repository/EntityManager signatures must use transfer objects or primitives only (.claude/rules/persistence-repository.md, persistence-entity-manager.md).',
+                'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleEntityManager::saveComment() takes Propel entity type Orm\Zed\Comment\Persistence\SpyComment as a parameter; Repository/EntityManager signatures must use transfer objects or primitives only.',
                 12,
             ],
             [
-                'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleEntityManager::saveNullableComment() takes Propel entity type Orm\Zed\Comment\Persistence\SpyComment as a parameter; Repository/EntityManager signatures must use transfer objects or primitives only (.claude/rules/persistence-repository.md, persistence-entity-manager.md).',
+                'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleEntityManager::saveNullableComment() takes Propel entity type Orm\Zed\Comment\Persistence\SpyComment as a parameter; Repository/EntityManager signatures must use transfer objects or primitives only.',
                 16,
             ],
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function testGivenARepositoryInterfaceLeakingOrmEntitiesInReturnTypeWhenAnalysedThenAnErrorIsReported(): void
     {
         // Arrange
@@ -58,7 +52,7 @@ class PersistenceSignatureTransferOnlyRuleTest extends RuleTestCase
         // Act & Assert
         $this->analyse([$fixture], [
             [
-                'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleRepositoryInterface::getCommentEntity() returns Propel entity type Orm\Zed\Comment\Persistence\SpyComment; Repository/EntityManager signatures must use transfer objects or primitives only (.claude/rules/persistence-repository.md, persistence-entity-manager.md).',
+                'Public persistence method Pyz\Zed\PersistenceFixtureModule\Persistence\FixtureModuleRepositoryInterface::getCommentEntity() returns Propel entity type Orm\Zed\Comment\Persistence\SpyComment; Repository/EntityManager signatures must use transfer objects or primitives only.',
                 14,
             ],
         ]);

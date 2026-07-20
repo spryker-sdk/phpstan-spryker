@@ -30,31 +30,19 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class ApiPlatformProviderProcessorRule implements Rule
 {
-    /**
-     * @var string
-     */
-    private const PROVIDER_INTERFACE = 'ApiPlatform\\State\\ProviderInterface';
+    private const string PROVIDER_INTERFACE = 'ApiPlatform\\State\\ProviderInterface';
+
+    private const string PROCESSOR_INTERFACE = 'ApiPlatform\\State\\ProcessorInterface';
+
+    private const string SERIALIZER_INTERFACE = 'Symfony\\Component\\Serializer\\SerializerInterface';
 
     /**
-     * @var string
-     */
-    private const PROCESSOR_INTERFACE = 'ApiPlatform\\State\\ProcessorInterface';
-
-    /**
-     * @var string
-     */
-    private const SERIALIZER_INTERFACE = 'Symfony\\Component\\Serializer\\SerializerInterface';
-
-    /**
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     * Resolves serializer interfaces among a class's constructor dependencies.
      */
     public function __construct(private readonly ReflectionProvider $reflectionProvider)
     {
     }
 
-    /**
-     * @return string
-     */
     public function getNodeType(): string
     {
         return InClassNode::class;
@@ -62,7 +50,6 @@ final class ApiPlatformProviderProcessorRule implements Rule
 
     /**
      * @param \PHPStan\Node\InClassNode $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */
@@ -113,12 +100,6 @@ final class ApiPlatformProviderProcessorRule implements Rule
         return $errors;
     }
 
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $classNode
-     * @param \PHPStan\Analyser\Scope $scope
-     *
-     * @return bool
-     */
     private function constructorReceivesSerializer(Class_ $classNode, Scope $scope): bool
     {
         $constructor = $classNode->getMethod('__construct');
@@ -146,8 +127,6 @@ final class ApiPlatformProviderProcessorRule implements Rule
 
     /**
      * @param \PhpParser\Node\Identifier|\PhpParser\Node\Name|\PhpParser\Node\ComplexType $returnType
-     *
-     * @return bool
      */
     private static function isNullableObjectReturnType(Identifier|Name|ComplexType|null $returnType): bool
     {
