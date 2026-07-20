@@ -1,0 +1,45 @@
+# Opinionated Spryker suite/project architecture rules.
+# NOT part of the always-on extension.neon: these carry substantial pre-existing
+# core violations, so consumers opt in explicitly (e.g. a project phpstan.neon)
+# and gate the rollout via ignoreErrors identifiers. Core scans that include only
+# extension.neon are unaffected.
+services:
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\StatelessComponentRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\ExpanderReturnRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\MapperMethodShapeRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\PersistenceSignatureTransferOnlyRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\RepositoryReadWriteSplitRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\RepositoryOrmWriteCallRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\GatewayControllerActionSignatureRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\ApiPlatformProviderProcessorRule
+        tags:
+            - phpstan.rules.rule
