@@ -1,6 +1,18 @@
 includes:
     - ../vendor/phpstan/phpstan-strict-rules/rules.neon
 
+services:
+    # Self-enforcement: this package's own source must use natively typed class constants.
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\ClassConstantNativeTypeHintRule
+        tags:
+            - phpstan.rules.rule
+    # Self-enforcement: this package's own source must use natively typed properties.
+    -
+        class: SprykerSdk\PHPStanSpryker\Rules\Spryker\PropertyNativeTypeHintRule
+        tags:
+            - phpstan.rules.rule
+
 parameters:
     treatPhpDocTypesAsCertain: false
     ignoreErrors:

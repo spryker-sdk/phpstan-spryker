@@ -1,9 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
 
 /**
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace SprykerSdk\PHPStanSpryker\Rules\Spryker;
 
@@ -21,19 +23,15 @@ use PHPStan\Type\ObjectType;
  */
 class DynamicMethodMissingPhpDocAnnotationRule implements Rule
 {
-    /**
-     * @var string
-     */
-    protected $className;
+    protected string $className;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
-    protected $methodNames;
+    protected array $methodNames;
 
     /**
-     * @param string $className
-     * @param string[] $methodNames
+     * @param array<string> $methodNames
      */
     public function __construct(string $className, array $methodNames)
     {
@@ -42,9 +40,7 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
     }
 
     /**
-     * @phpstan-return class-string<\PhpParser\Node\Expr\MethodCall>
-     *
-     * @return string
+     * @return class-string<\PhpParser\Node\Expr\MethodCall>
      */
     public function getNodeType(): string
     {
@@ -53,7 +49,6 @@ class DynamicMethodMissingPhpDocAnnotationRule implements Rule
 
     /**
      * @param \PhpParser\Node\Expr\MethodCall $node
-     * @param \PHPStan\Analyser\Scope $scope
      *
      * @return list<\PHPStan\Rules\IdentifierRuleError>
      */

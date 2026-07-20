@@ -12,9 +12,12 @@ use SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotation
 
 class DynamicMethodMissingPhpDocAnnotationRuleTest extends TestCase
 {
-    public function testInstance(): void
+    public function testGivenClassNameAndMethodNamesWhenConstructedThenAnInstanceOfTheRuleIsReturned(): void
     {
+        // Arrange & Act
         $instance = new DynamicMethodMissingPhpDocAnnotationRule('test', []);
+
+        // Assert
         $this->assertInstanceOf(DynamicMethodMissingPhpDocAnnotationRule::class, $instance);
     }
 }
