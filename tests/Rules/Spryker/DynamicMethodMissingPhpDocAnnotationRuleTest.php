@@ -7,14 +7,11 @@
 
 namespace SprykerSdk\PHPStanSpryker\Test\Rules\Spryker;
 
-use SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule;
 use PHPUnit\Framework\TestCase;
+use SprykerSdk\PHPStanSpryker\Rules\Spryker\DynamicMethodMissingPhpDocAnnotationRule;
 
 class DynamicMethodMissingPhpDocAnnotationRuleTest extends TestCase
 {
-    /**
-     * @return void
-     */
     public function testInstance(): void
     {
         $instance = new DynamicMethodMissingPhpDocAnnotationRule('test', []);

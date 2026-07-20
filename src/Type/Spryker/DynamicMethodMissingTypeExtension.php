@@ -1,9 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
 
 /**
  * MIT License
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace SprykerSdk\PHPStanSpryker\Type\Spryker;
 
@@ -30,14 +32,13 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     protected $className;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $methodNames;
 
     /**
-     * @param \PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension
      * @param class-string $className
-     * @param string[] $methodNames
+     * @param array<string> $methodNames
      */
     public function __construct(
         AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
@@ -58,9 +59,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     }
 
     /**
-     * @param \PHPStan\Reflection\MethodReflection $methodReflection
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function isMethodSupported(MethodReflection $methodReflection): bool
     {
@@ -72,11 +71,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     }
 
     /**
-     * @param \PHPStan\Reflection\MethodReflection $methodReflection
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param \PHPStan\Analyser\Scope $scope
-     *
-     * @return \PHPStan\Type\Type
+     * @inheritDoc
      */
     public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
     {
@@ -84,13 +79,7 @@ class DynamicMethodMissingTypeExtension implements DynamicMethodReturnTypeExtens
     }
 
     /**
-     * @param \PHPStan\Reflection\MethodReflection $methodReflection
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param \PHPStan\Analyser\Scope $scope
-     *
      * @throws \PHPStan\ShouldNotHappenException
-     *
-     * @return \PHPStan\Type\Type
      */
     protected function getTypeFromAnnotationsMethodClassReflection(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
     {

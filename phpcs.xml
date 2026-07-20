@@ -1,5 +1,71 @@
 <?xml version="1.0"?>
 <ruleset name="SprykerStrict">
+    <!-- PHPStan rule fixtures contain intentionally non-compliant code (e.g. untyped
+         constants) used as test input; they must not be linted. -->
+    <exclude-pattern>tests/Fixtures/*</exclude-pattern>
+
     <rule ref="vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml">
+        <!--
+            Spryker's DocBlock sniffs mandate a @return tag on every value-returning
+            method (and a @return void on every void method, plus a docblock to hold
+            it). That directly collides with forbidding redundant @return annotations
+            below, so lift only that mandatory-@return[-void] requirement here. The
+            remaining DocBlock checks (format/order validation of an existing @return,
+            void-body mismatch, invalid @return on constructors, etc.) stay in force.
+        -->
+        <exclude name="Spryker.Commenting.DocBlock.DocBlockMissing"/>
+        <exclude name="Spryker.Commenting.DocBlock.ReturnVoidMissing"/>
+        <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnMissing"/>
+        <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnVoidMissing"/>
+    </rule>
+
+    <!--
+        SprykerStrict re-uses the Slevomat type-hint sniffs but explicitly excludes
+        their useless-docblock detection, so redundant @param/@return/@var annotations
+        that only restate a native type are allowed. Re-referencing those excluded
+        sub-codes does not re-enable them (phpcs treats sniff-level excludes as sticky),
+        so instead we reference the underlying Slevomat sniffs directly and keep ONLY
+        their useless-annotation detection on. The missing-native-type detection stays
+        owned by the SprykerStrict sniffs above, so it is excluded here to avoid
+        double-reporting. Array-shape / narrowing docblocks (list<...>, array<...>,
+        string[], class-string<...>) carry information the native type cannot and are
+        never reported as useless.
+    -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessSuppress"/>
+        <properties>
+            <property name="enableMixedTypeHint" value="false"/>
+            <property name="enableUnionTypeHint" value="false"/>
+            <property name="enableIntersectionTypeHint" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.LessSpecificNativeTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessSuppress"/>
+        <properties>
+            <property name="enableStaticTypeHint" value="false"/>
+            <property name="enableMixedTypeHint" value="false"/>
+            <property name="enableUnionTypeHint" value="false"/>
+            <property name="enableIntersectionTypeHint" value="false"/>
+            <property name="enableNeverTypeHint" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessSuppress"/>
+        <properties>
+            <property name="enableNativeTypeHint" value="false"/>
+            <property name="enableMixedTypeHint" value="false"/>
+            <property name="enableUnionTypeHint" value="false"/>
+            <property name="enableIntersectionTypeHint" value="false"/>
+        </properties>
     </rule>
 </ruleset>
