@@ -8,21 +8,21 @@
 namespace SprykerSdk\PHPStanSpryker\Test\Rules\Spryker;
 
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
-use SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension;
 use PHPUnit\Framework\TestCase;
+use SprykerSdk\PHPStanSpryker\Type\Spryker\DynamicMethodMissingTypeExtension;
 
 class DynamicMethodMissingTypeExtensionTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function testInstance(): void
+    public function testGivenDependenciesWhenConstructedThenAnInstanceOfTheExtensionIsReturned(): void
     {
+        // Arrange & Act
         $instance = new DynamicMethodMissingTypeExtension(
             new AnnotationsMethodsClassReflectionExtension(),
             'test',
-            []
+            [],
         );
+
+        // Assert
         $this->assertInstanceOf(DynamicMethodMissingTypeExtension::class, $instance);
     }
 }
